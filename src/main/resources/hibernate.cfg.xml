@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="connection.url">jdbc:postgresql://localhost:5432/MyFinalProjTMS</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">admin</property>
+
+
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="format_sql">true</property>
+
+        <mapping class="myProj.entity.User"/>
+        <mapping class="myProj.entity.AvailableOrder"/>
+        <mapping class="myProj.entity.SphereActivity"/>
+        <mapping class="myProj.entity.UserAOrder"/>
+        <mapping class="myProj.entity.UserCard"/>
+        <mapping class="myProj.entity.UserOrder"/>
+        <mapping class="myProj.entity.UserReview"/>
+
+    </session-factory>
+</hibernate-configuration>
