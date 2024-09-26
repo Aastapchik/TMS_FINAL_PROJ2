@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         //  .requestMatchers("/profi").hasRole("ADMIN")
-                        .requestMatchers("/profi-user-myorders", "/profi-welcome-user").hasRole("USER")
+                        .requestMatchers("/profi-user-myorders", "/profi-welcome-user", "/profi-user-create-order").hasRole("USER")
                         .requestMatchers("/profi-welcome", "/profi-registration").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
 

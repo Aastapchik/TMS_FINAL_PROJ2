@@ -42,7 +42,6 @@ public class UserRequestDB {
             userOrderList = getUserOrderList.getResultList();
 
         }
-        System.out.println(userOrderList);
         model.addAttribute("orders", userOrderList);
     }
 

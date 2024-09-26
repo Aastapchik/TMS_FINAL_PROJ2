@@ -97,16 +97,16 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-10">
-                        <form>
+                        <form method="post" action="${pageContext.request.contextPath}/profi-user-create-order" name="createOrder" id="createOrder">
                             <p>
                                 <input class="form-control" style="width: 1050px"
                                        placeholder="Услуга или специалист"
-                                       aria-label="Search">
+                                       aria-label="Search" name="orderWhichUserWant">
                             </p>
                         </form>
                     </div>
                     <div class="col-2">
-                        <button type="button" class="btn btn-danger">Перейти к созданию</button>
+                        <button type="submit" class="btn btn-danger" form="createOrder">Перейти к созданию</button>
                     </div>
                 </div>
             </div>

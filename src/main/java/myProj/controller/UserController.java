@@ -4,6 +4,10 @@ import myProj.localMemory.Const;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import static myProj.dataBase.request.general.GeneralRequest.addModelAllSphereActivity;
 import static myProj.dataBase.request.user.UserRequestDB.getUserOrderFromModel;
 import static myProj.dataBase.request.user.UserRequestDB.getUsernameFromModel;
 
@@ -19,6 +23,13 @@ public class UserController {
         getUserOrderFromModel(model, 1);
         getUsernameFromModel(model, 1);
         return "myOrdersUser";
+    }
+
+    @PostMapping("/profi-user-create-order")
+    private String creatingOrder(@RequestParam(name = "orderWhichUserWant") String orderName, Model model){
+        addModelAllSphereActivity(model);
+        model.addAttribute("nameOrderUser", orderName);
+        return "creatingOrder";
     }
 
 }
