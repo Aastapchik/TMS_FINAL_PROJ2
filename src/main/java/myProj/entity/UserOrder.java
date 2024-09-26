@@ -17,10 +17,16 @@ public class UserOrder {
     @Column(name = "name_of_order")
     private String nameOrder;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="fk_usrs_order")
     private User user;
 
+    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+    @JoinColumn(name="fk_executor_id")
+    private User master;
 
     @Override
     public String toString() {
