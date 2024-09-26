@@ -20,6 +20,8 @@ public class UserOrder {
     @Column(name = "status")
     private String status;
 
+
+
     @ManyToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="fk_usrs_order")
     private User user;

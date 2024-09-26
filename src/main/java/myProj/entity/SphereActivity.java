@@ -3,6 +3,12 @@ package myProj.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -16,6 +22,15 @@ public class SphereActivity {
 
     @Column(name = "name_of_activity")
     private String nameActivity;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(
+            name = "aorders_sphere",
+            joinColumns = {@JoinColumn(name = "sphere_id")},
+            inverseJoinColumns = {@JoinColumn(name = "aorders_id")}
+    )
+    List<AvailableOrder> availableOrderList = new ArrayList<>();
 
     @Override
     public String toString() {

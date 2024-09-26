@@ -61,14 +61,16 @@
     </div>
 </header>
 <br>
-<div class="container text-center">
-    <form action="${pageContext.request.contextPath}/profi-user-save-order">
-        <div class="mb-3">
-            <label for="nameOrder" class="form-label"
-                   style="font-size: 25px; font-weight: bold">Ваше описание услуги или ремонта</label>
-            <input type="text" class="form-control" id="nameOrder" value="${nameOrderUser}">
+
+<form action="${pageContext.request.contextPath}/profi-user-save-order" method="post">
+    <div class="container text-left">
+        <div class="form-floating">
+            <div class="mb-3">
+                <label for="nameOrder" class="form-label"
+                       style="font-size: 15px"></label>
+                <input type="text" class="form-control" id="nameOrder" name = "nameOrder" value="${nameOrderUser}">
+            </div>
         </div>
-        <br>
         <select id="name3" name="name3" class="form-select">
             <option selected>Выберите категорию вопроса</option>
             <c:forEach items="${spheres}" var="sphere">
@@ -77,8 +79,17 @@
 
         </select>
         <br>
-        <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
-    </form>
-</div>
+        <div class="form-floating">
+            <input class="form-control" placeholder="Подробное описание заказа или услуги" id="floatingTextarea2"
+                   name="descriptionOrder" style="height: 250px">
+            <label for="floatingTextarea2">Подробное описание заказа или услуги</label>
+        </div>
+        <br>
+    </div>
+        <div class="container text-center">
+            <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+        </div>
+
+</form>
 </body>
 </html>
