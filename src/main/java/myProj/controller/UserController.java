@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static myProj.dataBase.request.general.GeneralRequest.addModelAllSphereActivity;
-import static myProj.dataBase.request.user.UserRequestDB.getUserOrderFromModel;
-import static myProj.dataBase.request.user.UserRequestDB.getUsernameFromModel;
+import static myProj.dataBase.request.user.UserRequestDB.*;
 
 @Controller
 //@RequestMapping(path = "/profi/user")
@@ -44,8 +43,8 @@ public class UserController {
                              @RequestParam(name = "descriptionOrder") String description,
                              Model model) {
 
-        UserRequestDB.saveOrderUser(nameOrder, description, sphere);
-        UserRequestDB.saveOrderToAvailable(nameOrder, description, sphere);
+        saveOrderUser(nameOrder, description, sphere);
+        saveOrderToAvailable(nameOrder, description, sphere);
         model.addAttribute("cities", Const.CITIES);
         model.addAttribute("states", Const.statesOrder);
         getUserOrderFromModel(model, 1);
@@ -59,14 +58,35 @@ public class UserController {
                                @RequestParam(name = "description") String description,
                                @RequestParam(name = "name") String name,
                                Model model) {
-        System.out.println(status + " " + description + " " + name);
-        UserRequestDB.deleteOrderUser(name, status, description);
+        deleteOrderUser(name, status, description);
         model.addAttribute("cities", Const.CITIES);
         model.addAttribute("states", Const.statesOrder);
         getUserOrderFromModel(model, 1);
         getUsernameFromModel(model, 1);
 
         return "myOrdersUser";
+    }
+
+    @GetMapping("/profi-user-settings")
+    private String showSettingPage(Model model){
+        getUserOrderFromModel(model, 1);
+        getUsernameFromModel(model, 1);
+        getUserCardFromModel(model, 1);
+        return "userCardPage";
+    }
+
+    @PostMapping("/profi-user-update-card")
+    private String updateUser(@RequestParam(name = "newNameUser") String newName,
+                              @RequestParam(name = "newSurnameUser") String newSurname,
+                              @RequestParam(name = "newDescriptionUser") String newDescription,
+                              @RequestParam(name = "newSpheresActivityUser") String newSpheresActivityUser,
+                              Model model) {
+
+        updateUserCard(newName, newSurname, newSpheresActivityUser, newDescription);
+        getUserOrderFromModel(model, 1);
+        getUsernameFromModel(model, 1);
+        getUserCardFromModel(model, 1);
+        return "userCardPage";
     }
 
 }

@@ -67,12 +67,15 @@
 
                 <li><a href="${pageContext.request.contextPath}/profi-user-myorders" class="nav-link px-2 text-white">Мои
                     заказы</a></li>
-                <li><p>___________________________________________________________</p>
+                <li><p>__________________</p>
                 </li>
                 <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
             </ul>
 
             <div class="text-end">
+                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
+                   Редактировать учётную запись
+                </button>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
                     Выход
                 </button>

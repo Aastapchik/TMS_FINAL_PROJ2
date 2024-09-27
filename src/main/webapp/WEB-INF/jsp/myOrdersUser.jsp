@@ -69,17 +69,18 @@
 
                 <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
             </ul>
+            <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
+                Редактировать учётную запись
+            </button>
+            <div class="text-end">
+                <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
+                    Вход для специалистов
+                </button>
 
-                <div class="text-end">
-                    <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
-                        Вход для специалистов
-                    </button>
-
-                    <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
-                        Выйти из аккаунта
-                    </button>
-                </div>
-            </ul>
+                <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
+                    Выйти из аккаунта
+                </button>
+            </div>
         </div>
     </div>
 </header>
@@ -147,7 +148,9 @@
                     <c:choose>
                         <c:when test="${order.status == states.get(2)}">
                             <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
-                            <button type="submit" class="btn btn-danger" form="delete" style="text-align: right">Удалить заказ</button>
+                            <button type="submit" class="btn btn-danger" form="delete" style="text-align: right">Удалить
+                                заказ
+                            </button>
                         </c:when>
                     </c:choose>
                 </div>

@@ -8,9 +8,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Component
@@ -19,19 +19,6 @@ public class UserRequestDB {
     private static SessionFactory sf = AppCfg.entityManagerFactory();
     private static Transaction tr = sf.getCurrentSession().beginTransaction();
 
-
-    public static String getUser() throws SQLException {
-
-        String login;
-        try (Session session = sf.getCurrentSession()) {
-
-            Query query = session.createQuery("SELECT login FROM User where id = 1");
-            login = (String) query.getResultList().get(0);
-
-        }
-        return login;
-
-    }
 
     public static void getUserOrderFromModel(Model model, int id) {
         List<UserOrder> userOrderList;
@@ -104,7 +91,6 @@ public class UserRequestDB {
 
             session.getTransaction().commit();
 
-
         }
     }
 
@@ -120,6 +106,47 @@ public class UserRequestDB {
             session.getTransaction().commit();
         }
 
+    }
+
+    public static void getUserCardFromModel(Model model, int id) {
+        UserCard userCard;
+        try (Session session = sf.getCurrentSession()) {
+
+            session.beginTransaction();
+            Query getUserCard = session.createQuery("SELECT userCard FROM User where id=:id ");
+            getUserCard.setParameter("id", id);
+            userCard = (UserCard) getUserCard.getResultList().get(0);
+
+        }
+        model.addAttribute("userCard", userCard);
+    }
+
+
+    public static void updateUserCard(String name, String surname, String sphere, String description) {
+
+
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where id =: id");
+            findUser.setParameter("id", 1);
+            User user = (User) findUser.getResultList().get(0);
+            UserCard userCard = user.getUserCard();
+            if (!description.isEmpty()) userCard.setDescription(description);
+            else userCard.setDescription(user.getUserCard().getDescription());
+
+            if (!name.isEmpty()) userCard.setName(name);
+            else userCard.setName(user.getUserCard().getName());
+
+            if (!surname.isEmpty()) userCard.setSurname(surname);
+            else userCard.setSurname(user.getUserCard().getSurname());
+
+            userCard.setNumStar(user.getUserCard().getNumStar());
+            user.setUserCard(userCard);
+
+            session.update(user);
+            session.getTransaction().commit();
+            //session.close();
+        }
 
     }
 }

@@ -30,7 +30,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         //  .requestMatchers("/profi").hasRole("ADMIN")
-                        .requestMatchers("/profi-user-myorders", "/profi-user-welcome", "/profi-user-create-order", "/profi-user-save-order", "/profi-user-delete-order").hasRole("USER")
+                        .requestMatchers("/profi-user-myorders", "/profi-user-welcome", "/profi-user-create-order",
+                                "/profi-user-save-order", "/profi-user-delete-order", "/profi-user-update-card", "/profi-user-settings").hasRole("USER")
                         .requestMatchers("/profi-welcome", "/profi-registration").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
 
