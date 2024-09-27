@@ -122,6 +122,10 @@
             <div class="card-body">
                 <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
                 <div class="container text-right">
+                <form name="delete" id="delete" method="post" action="${pageContext.request.contextPath}/profi-user-delete-order">
+                    <input name="status" type="hidden" value="${order.status}"/>
+                    <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                    <input name="name" type="hidden" value="${order.nameOrder}"/>
                     <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
                     <hr>
                     <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
@@ -133,8 +137,10 @@
                         </c:when>
                         <c:when test="${order.status == states.get(2)}">
                             <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
+                            <button type="submit" class="btn btn-danger" form="delete">Удалить заказ</button>
                         </c:when>
                     </c:choose>
+                </form>
                 </div>
             </div>
         </div>

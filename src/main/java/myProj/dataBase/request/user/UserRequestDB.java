@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -66,7 +64,7 @@ public class UserRequestDB {
 
     public static void saveOrderUser(String nameOrder, String description, String sphere) {
         try (Session session = sf.getCurrentSession()) {
-           session.beginTransaction();
+            session.beginTransaction();
             Query findUser = session.createQuery("FROM User Where id =: id");
             findUser.setParameter("id", 1);
 
@@ -87,7 +85,7 @@ public class UserRequestDB {
         }
     }
 
-    public static void saveOrderToAvailable(String nameOrder, String description, String sphere){
+    public static void saveOrderToAvailable(String nameOrder, String description, String sphere) {
         try (Session session = sf.getCurrentSession()) {
 
             session.beginTransaction();
@@ -108,5 +106,20 @@ public class UserRequestDB {
 
 
         }
+    }
+
+    public static void deleteOrderUser(String nameOrder, String status, String description) {
+
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query query = session.createQuery("DELETE FROM UserOrder WHERE nameOrder =: nameOrder AND status =: status AND descriptionOrder =: description");
+            query.setParameter("nameOrder", nameOrder);
+            query.setParameter("status", status);
+            query.setParameter("description", description);
+            query.executeUpdate();
+            session.getTransaction().commit();
+        }
+
+
     }
 }

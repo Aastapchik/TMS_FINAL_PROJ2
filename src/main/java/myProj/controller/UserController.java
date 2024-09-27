@@ -51,4 +51,19 @@ public class UserController {
         return "myOrdersUser";
     }
 
+    @PostMapping("/profi-user-delete-order")
+    private String deleteOrder(@RequestParam(name = "status") String status,
+                               @RequestParam(name = "description") String description,
+                               @RequestParam(name = "name") String name,
+                               Model model){
+        System.out.println(status + " " + description + " " + name);
+        UserRequestDB.deleteOrderUser(name, status, description);
+        model.addAttribute("cities", Const.CITIES);
+        model.addAttribute("states", Const.statesOrder);
+        getUserOrderFromModel(model, 1);
+        getUsernameFromModel(model, 1);
+
+        return "myOrdersUser";
+    }
+
 }
