@@ -48,15 +48,14 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-red"
+                <li><a href="${pageContext.request.contextPath}/profi-welcome" class="nav-link px-2 text-red"
                        style="color: red; font-weight: bold">MYPROJPROFI</a></li>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         <ul class="dropdown-menu">
                             <c:forEach items="${cities}" var="city">
-                                <li><a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}/profi-welcome-${city}">${city}</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profi-welcome-${city}">${city}</a></li>
                             </c:forEach>
                             </option>
                         </ul>
@@ -65,19 +64,21 @@
                 </div>
 
 
-                <li><a href="${pageContext.request.contextPath}/profi-user-myorders" class="nav-link px-2 text-white">Мои
-                    заказы</a></li>
-                <li><p>___________________________________________________________</p>
+                <li><a href="${pageContext.request.contextPath}/profi-user-myorders" class="nav-link px-2 text-white">Мои заказы</a></li>
+<%--                <li><p>___________________________________________________________</p>--%>
                 </li>
-                <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
+<%--                <li><a href="${pageContext.request.contextPath}/profi-master-login" class="nav-link px-2 text-white">Вход для специалистов</a></li>--%>
             </ul>
 
             <div class="text-end">
-                <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
-                    Выход
+                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-login'" type="button">
+                    Вход для специалистов
                 </button>
-                <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
-                   Вход для специалистов
+                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-welcome'" type="button">
+                    Вход для пользователей
+                </button>
+                <button class="btn btn-warning" onclick="location.href='/profi-registration'" type="button">
+                    Регистрация
                 </button>
 
             </div>
@@ -96,11 +97,9 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-10">
-            <form method="post" name="createOrder" id="createOrder"
-                  action="${pageContext.request.contextPath}/profi-user-create-order">
+            <form method="post" name="createOrder" id="createOrder" action="${pageContext.request.contextPath}/profi-user-create-order">
                 <p>
-                    <input class="form-control" name="orderWhichUserWant" style="width: 1150px"
-                           placeholder="Услуга или специалист"
+                    <input class="form-control" name="orderWhichUserWant" style="width: 1150px" placeholder="Услуга или специалист"
                            aria-label="Search">
                 </p>
             </form>

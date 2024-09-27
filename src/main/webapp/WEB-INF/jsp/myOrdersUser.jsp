@@ -46,14 +46,15 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="http://localhost:8080" class="nav-link px-2 text-red"
+                <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-red"
                        style="color: red; font-weight: bold">MYPROJPROFI</a></li>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         <ul class="dropdown-menu">
                             <c:forEach items="${cities}" var="city">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/profi-welcome-${city}">${city}</a></li>
+                                <li><a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/profi-welcome-${city}">${city}</a></li>
                             </c:forEach>
                             </option>
                         </ul>
@@ -62,23 +63,24 @@
                 </div>
 
 
-                <li><a href="${pageContext.request.contextPath}/profi-welcome" class="nav-link px-2 text-white">Вернуться
+                <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-white">Вернуться
                     на главную</a></li>
-                <li><p>_______________</p>
-                </li>
+                <li><p>_____________________________________</p></li>
 
-                    <li><a href="#" class="nav-link px-2 text-white">Вход для специалистов</a></li>
-                    <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
-
-
-            <div class="text-end">
-
-                <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
-                    Выйти из аккаунта
-                </button>
-            </div>
+                <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
             </ul>
-    </div>
+
+                <div class="text-end">
+                    <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
+                        Вход для специалистов
+                    </button>
+
+                    <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
+                        Выйти из аккаунта
+                    </button>
+                </div>
+            </ul>
+        </div>
     </div>
 </header>
 <br>
@@ -97,7 +99,8 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-10">
-                        <form method="post" action="${pageContext.request.contextPath}/profi-user-create-order" name="createOrder" id="createOrder">
+                        <form method="post" action="${pageContext.request.contextPath}/profi-user-create-order"
+                              name="createOrder" id="createOrder">
                             <p>
                                 <input class="form-control" style="width: 1050px"
                                        placeholder="Услуга или специалист"
@@ -116,13 +119,16 @@
 
 
 <c:forEach items="${orders}" var="order">
-    <br>
-    <div class="container text-center">
-        <div class="card w-100 mb-3">
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
+<br>
+<div class="container text-center">
+    <div class="card w-100 mb-3">
+        <div class="card-body">
+            <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
+
+            <form name="delete" id="delete" method="post"
+                  action="${pageContext.request.contextPath}/profi-user-delete-order">
+
                 <div class="container text-right">
-                <form name="delete" id="delete" method="post" action="${pageContext.request.contextPath}/profi-user-delete-order">
                     <input name="status" type="hidden" value="${order.status}"/>
                     <input name="description" type="hidden" value="${order.descriptionOrder}"/>
                     <input name="name" type="hidden" value="${order.nameOrder}"/>
@@ -135,17 +141,21 @@
                             <p style="text-align: left; font-size: 25px;">
                                 Исполнитель: ${order.master.getUserCard().getName()} ${order.master.getUserCard().getSurname()} </p>
                         </c:when>
+                    </c:choose>
+                </div>
+                <div class="container text-right">
+                    <c:choose>
                         <c:when test="${order.status == states.get(2)}">
                             <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
-                            <button type="submit" class="btn btn-danger" form="delete">Удалить заказ</button>
+                            <button type="submit" class="btn btn-danger" form="delete" style="text-align: right">Удалить заказ</button>
                         </c:when>
                     </c:choose>
-                </form>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-</c:forEach>
+
+    </c:forEach>
 
 </body>
 

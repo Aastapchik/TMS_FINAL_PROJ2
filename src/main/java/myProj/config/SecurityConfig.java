@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         //  .requestMatchers("/profi").hasRole("ADMIN")
-                        .requestMatchers("/profi-user-myorders", "/profi-welcome-user", "/profi-user-create-order", "/profi-user-save-order", "/profi-user-delete-order").hasRole("USER")
+                        .requestMatchers("/profi-user-myorders", "/profi-user-welcome", "/profi-user-create-order", "/profi-user-save-order", "/profi-user-delete-order").hasRole("USER")
                         .requestMatchers("/profi-welcome", "/profi-registration").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
 
@@ -63,5 +63,14 @@ public class SecurityConfig {
                         .build();
 
         return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .sessionManagement(session -> session
+                        .maximumSessions(1)
+                );
+        return http.build();
     }
 }

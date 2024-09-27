@@ -13,7 +13,7 @@ public class StartController {
     private String welcome(Model model){
 
         model.addAttribute("cities", Const.CITIES);
-        return "startPagePROFI";
+        return "guestPage";
     }
 
     @GetMapping(path = "/profi-registration")
@@ -25,11 +25,8 @@ public class StartController {
     @GetMapping(path = "/profi-logout")
     private String logout(Model model){
         model.addAttribute("cities", Const.CITIES);
-        return "startPagePROFI";
+        return "guestPage";
     }
-    @GetMapping(path = "/profi-welcome-user")
-    private String pageAfterAuth(){
-        return "startPagePROFI";
-    }
+
 
 }
