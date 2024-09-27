@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GeneralRequest {
 
@@ -26,6 +28,7 @@ public class GeneralRequest {
             Query query = session.createQuery("SELECT nameActivity FROM SphereActivity");
             spheresActivity = query.getResultList();
         }
+        spheresActivity = spheresActivity.stream().distinct().collect(Collectors.toList());
         model.addAttribute("spheres", spheresActivity);
 
     }

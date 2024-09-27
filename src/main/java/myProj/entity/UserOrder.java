@@ -20,13 +20,14 @@ public class UserOrder {
     @Column(name = "status")
     private String status;
 
-
+    @Column(name = "description")
+    private String descriptionOrder;
 
     @ManyToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="fk_usrs_order")
     private User user;
 
-    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+    @ManyToOne(optional=true, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="fk_executor_id")
     private User master;
 

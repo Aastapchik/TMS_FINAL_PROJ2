@@ -123,6 +123,9 @@
                 <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
                 <div class="container text-right">
                     <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                    <hr>
+                    <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                    <hr>
                     <c:choose>
                         <c:when test="${order.status != states.get(2)}">
                             <p style="text-align: left; font-size: 25px;">

@@ -1,6 +1,8 @@
 package myProj.controller;
 
+import myProj.dataBase.request.user.UserRequestDB;
 import myProj.localMemory.Const;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,23 @@ public class UserController {
         addModelAllSphereActivity(model);
         model.addAttribute("nameOrderUser", orderName);
         return "creatingOrder";
+    }
+
+    @PostMapping("/profi-user-save-order")
+    private String saveOrder(@RequestParam(name = "nameOrder") String nameOrder,
+                             @RequestParam(name = "sphere") String sphere,
+                             @RequestParam(name = "descriptionOrder") String description,
+                             Model model){
+
+        UserRequestDB.saveOrderUser(nameOrder, description, sphere);
+        UserRequestDB.saveOrderToAvailable(nameOrder, description, sphere);
+        model.addAttribute("cities", Const.CITIES);
+        model.addAttribute("states", Const.statesOrder);
+        getUserOrderFromModel(model, 1);
+        getUsernameFromModel(model, 1);
+
+
+        return "myOrdersUser";
     }
 
 }

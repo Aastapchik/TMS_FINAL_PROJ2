@@ -71,7 +71,7 @@
                 <input type="text" class="form-control" id="nameOrder" name = "nameOrder" value="${nameOrderUser}">
             </div>
         </div>
-        <select id="name3" name="name3" class="form-select">
+        <select id="sphere" name="sphere" class="form-select">
             <option selected>Выберите категорию вопроса</option>
             <c:forEach items="${spheres}" var="sphere">
                 <option value="${sphere}" name="sphere">${sphere}</option>

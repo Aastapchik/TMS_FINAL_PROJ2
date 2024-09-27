@@ -69,6 +69,11 @@
       <artifactId>spring-boot-starter-tomcat</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>net.n2oapp.criteria</groupId>
+      <artifactId>criteria-api</artifactId>
+      <version>7.27.15</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>FinalProj</finalName>

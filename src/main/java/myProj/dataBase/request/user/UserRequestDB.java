@@ -1,15 +1,18 @@
 package myProj.dataBase.request.user;
 
 import myProj.dataBase.AppCfg;
-import myProj.entity.UserCard;
-import myProj.entity.UserOrder;
+import myProj.entity.*;
+import myProj.localMemory.Const;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -32,7 +35,7 @@ public class UserRequestDB {
 
     }
 
-    public static void getUserOrderFromModel(Model model, int id){
+    public static void getUserOrderFromModel(Model model, int id) {
         List<UserOrder> userOrderList;
         try (Session session = sf.getCurrentSession()) {
 
@@ -45,20 +48,65 @@ public class UserRequestDB {
         model.addAttribute("orders", userOrderList);
     }
 
-    public static void getUsernameFromModel(Model model, int id){
+    public static void getUsernameFromModel(Model model, int id) {
         String username;
         try (Session session = sf.getCurrentSession()) {
 
             session.beginTransaction();
             Query getUserCard = session.createQuery("SELECT userCard FROM User where id=:id");
             getUserCard.setParameter("id", id);
-            UserCard userCard = (UserCard) getUserCard.getResultList().get(0);
+            List list = getUserCard.getResultList();
+            if (list.isEmpty()) return;
+            UserCard userCard = (UserCard) list.get(0);
             username = userCard.getSurname() + " " + userCard.getName();
         }
         model.addAttribute("username", username);
     }
 
 
+    public static void saveOrderUser(String nameOrder, String description, String sphere) {
+        try (Session session = sf.getCurrentSession()) {
+           session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where id =: id");
+            findUser.setParameter("id", 1);
+
+            User user = (User) findUser.getResultList().get(0);
+
+            UserOrder userOrder = new UserOrder();
+
+            userOrder.setNameOrder(nameOrder);
+            userOrder.setStatus(Const.statesOrder.get(2));
+            userOrder.setDescriptionOrder(description);
+            userOrder.setUser(user);
+
+            session.save(userOrder);
+
+            session.getTransaction().commit();
 
 
+        }
+    }
+
+    public static void saveOrderToAvailable(String nameOrder, String description, String sphere){
+        try (Session session = sf.getCurrentSession()) {
+
+            session.beginTransaction();
+
+            AvailableOrder availableOrder = new AvailableOrder();
+
+            availableOrder.setNameOrder(nameOrder);
+            availableOrder.setDescriptionOrder(description);
+            availableOrder.setStatus(Const.statesOrder.get(2));
+
+            SphereActivity sphereActivity = new SphereActivity();
+            sphereActivity.setNameActivity(sphere);
+            availableOrder.setSphereActivity(sphereActivity);
+
+            session.merge(availableOrder);
+
+            session.getTransaction().commit();
+
+
+        }
+    }
 }

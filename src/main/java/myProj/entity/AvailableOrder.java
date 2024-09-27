@@ -27,16 +27,20 @@ public class AvailableOrder {
     private String status;
 
     @Column(name = "description_order")
-    private String description;
+    private String descriptionOrder;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(
-            name = "aorders_sphere",
-            joinColumns = {@JoinColumn(name = "aorders_id")},
-            inverseJoinColumns = {@JoinColumn(name = "sphere_id")}
-    )
-    List<SphereActivity> sphereActivityList = new ArrayList<>();
+    @ManyToOne(optional=true, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name="fk_sphere_activity")
+    private SphereActivity sphereActivity;
+
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "aorders_sphere",
+//            joinColumns = {@JoinColumn(name = "aorders_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "sphere_id")}
+//    )
+//    List<SphereActivity> sphereActivityList = new ArrayList<>();
 
     @Override
     public String toString() {

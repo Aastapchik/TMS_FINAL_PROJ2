@@ -24,13 +24,17 @@ public class SphereActivity {
     private String nameActivity;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinTable(
-            name = "aorders_sphere",
-            joinColumns = {@JoinColumn(name = "sphere_id")},
-            inverseJoinColumns = {@JoinColumn(name = "aorders_id")}
-    )
-    List<AvailableOrder> availableOrderList = new ArrayList<>();
+    @OneToMany(mappedBy = "sphereActivity", fetch = FetchType.LAZY)
+    private List<AvailableOrder> availableOrderList = new ArrayList<>();
+
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "aorders_sphere",
+//            joinColumns = {@JoinColumn(name = "sphere_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "aorders_id")}
+//    )
+//    List<AvailableOrder> availableOrderList = new ArrayList<>();
 
     @Override
     public String toString() {

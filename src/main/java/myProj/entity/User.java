@@ -8,6 +8,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -16,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable=false)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @Column(name = "login")
@@ -47,24 +48,24 @@ public class User {
     List<AvailableOrder> availableOrdersList = new ArrayList<>();
 
 
-    @OneToOne (optional=false, mappedBy="user")
+    @OneToOne(optional = false, mappedBy = "user")
     private UserCard userCard;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy="user", fetch=FetchType.LAZY)
-    private List<UserAOrder> userAOrders;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserAOrder> userAOrders = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy="user", fetch=FetchType.LAZY)
-    private List<UserOrder> userOrders;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserOrder> userOrders = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy="user", fetch=FetchType.LAZY)
-    private List<UserReview> userReviews;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserReview> userReviews = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy="master", fetch=FetchType.LAZY)
-    private List<UserOrder> masterOrders;
+    // @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "master", fetch = FetchType.LAZY)
+    private List<UserOrder> masterOrders = new ArrayList<>();
 
     @Override
     public String toString() {
