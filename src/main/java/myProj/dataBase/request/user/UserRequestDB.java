@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -149,4 +148,22 @@ public class UserRequestDB {
         }
 
     }
+
+    public static int[] getGradeUser(int id) {
+        int[] scores;
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("Select userReviews FROM User Where id =: id");
+            findUser.setParameter("id", 1);
+            List<UserReview> userReviewsList = findUser.getResultList();
+            scores = new int[userReviewsList.size()];
+            for (int i = 0; i < userReviewsList.size(); i++) scores[i] = userReviewsList.get(i).getGrade();
+            session.getTransaction().commit();
+
+        }
+        return scores;
+
+    }
+
+
 }
