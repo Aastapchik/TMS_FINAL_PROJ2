@@ -19,6 +19,7 @@ public class UserRequestDB {
     private static Transaction tr = sf.getCurrentSession().beginTransaction();
 
 
+
     public static void getUserOrderFromModel(Model model, int id) {
         List<UserOrder> userOrderList;
         try (Session session = sf.getCurrentSession()) {
@@ -48,11 +49,11 @@ public class UserRequestDB {
     }
 
 
-    public static void saveOrderUser(String nameOrder, String description, String sphere) {
+    public static void saveOrderUser(String nameOrder, String description, String sphere, int id) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query findUser = session.createQuery("FROM User Where id =: id");
-            findUser.setParameter("id", 1);
+            findUser.setParameter("id", id);
 
             User user = (User) findUser.getResultList().get(0);
 
@@ -108,26 +109,35 @@ public class UserRequestDB {
     }
 
     public static void getUserCardFromModel(Model model, int id) {
-        UserCard userCard;
+        UserCard userCard = new UserCard();
         try (Session session = sf.getCurrentSession()) {
 
             session.beginTransaction();
             Query getUserCard = session.createQuery("SELECT userCard FROM User where id=:id ");
             getUserCard.setParameter("id", id);
-            userCard = (UserCard) getUserCard.getResultList().get(0);
-
+            if(!getUserCard.getResultList().isEmpty()) {
+                userCard = (UserCard) getUserCard.getResultList().get(0);
+                session.getTransaction().commit();
+            }
+//            else {
+//                session.getTransaction().commit();
+//                userCard.setNumStar(6);
+//                userCard.setName(" ");
+//                userCard.setSurname(" ");
+//                userCard.setDescription(" ");
+//            }
         }
         model.addAttribute("userCard", userCard);
     }
 
 
-    public static void updateUserCard(String name, String surname, String sphere, String description) {
+    public static void updateUserCard(String name, String surname, String sphere, String description, int id) {
 
 
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query findUser = session.createQuery("FROM User Where id =: id");
-            findUser.setParameter("id", 1);
+            findUser.setParameter("id", id);
             User user = (User) findUser.getResultList().get(0);
             UserCard userCard = user.getUserCard();
             if (!description.isEmpty()) userCard.setDescription(description);
@@ -153,7 +163,7 @@ public class UserRequestDB {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query findUser = session.createQuery("Select userReviews FROM User Where id =: id");
-            findUser.setParameter("id", 1);
+            findUser.setParameter("id", id);
             List<UserReview> userReviewsList = findUser.getResultList();
             scores = new int[userReviewsList.size()];
             for (int i = 0; i < userReviewsList.size(); i++) scores[i] = userReviewsList.get(i).getGrade();
@@ -169,7 +179,7 @@ public class UserRequestDB {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query findUserReview = session.createQuery("Select userReviews FROM User Where id =: id");
-            findUserReview.setParameter("id", 1);
+            findUserReview.setParameter("id", id);
             userReviewsList = findUserReview.getResultList();
             session.getTransaction().commit();
 
@@ -195,6 +205,7 @@ public class UserRequestDB {
         }
         return user;
     }
+
 
 
 }

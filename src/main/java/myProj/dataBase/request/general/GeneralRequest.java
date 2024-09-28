@@ -2,7 +2,9 @@ package myProj.dataBase.request.general;
 
 import myProj.config.SecurityConfig;
 import myProj.dataBase.AppCfg;
+import myProj.dataBase.request.user.UserRequestDB;
 import myProj.entity.User;
+import myProj.entity.UserCard;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -38,12 +40,25 @@ public class GeneralRequest {
         user.setLogin(login);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(role);
+        UserCard userCard = new UserCard(6, "Заполните описание", "Заполните имя", "Заполните фамилию");
+        user.setUserCard(userCard);
         try (Session session = sf.getCurrentSession()) {
-
             session.save(user);
             session.getTransaction().commit();
         }
     }
+
+    public static void createUserCardNewUser(String login){
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            User user = UserRequestDB.findUserByUsername(login);
+            UserCard userCard = new UserCard(6, "Заполните описание", "Заполните имя", "Заполните фамилию");
+            userCard.setUser(user);
+            session.save(userCard);
+            session.getTransaction().commit();
+        }
+    }
+
 
 
 }

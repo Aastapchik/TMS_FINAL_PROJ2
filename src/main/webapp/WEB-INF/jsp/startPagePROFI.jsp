@@ -67,8 +67,7 @@
 
                 <li><a href="${pageContext.request.contextPath}/profi-user-myorders" class="nav-link px-2 text-white">Мои
                     заказы</a></li>
-                <li><p>__________________</p>
-                </li>
+                <li><p>__________________</p></li>
                 <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
             </ul>
 

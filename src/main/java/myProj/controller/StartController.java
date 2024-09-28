@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static myProj.dataBase.request.general.GeneralRequest.createUserCardNewUser;
 import static myProj.dataBase.request.general.GeneralRequest.saveUser;
 import static myProj.dataBase.request.user.UserRequestDB.findUserByUsername;
 
@@ -58,6 +59,7 @@ public class StartController {
             return "registrationForm";
         }
         saveUser(login, password, role);
+        createUserCardNewUser(login);
 
         return "guestPage";
     }
