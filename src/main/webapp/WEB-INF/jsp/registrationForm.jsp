@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -61,28 +62,31 @@
 </header>
 <br>
 <div class="container text-center">
-    <form action="/profi-save-new-account">
+    <c:if test="${userNotNULL}"><p>Пользователь с таким логином уже существует!</p></c:if>
+    <c:if test="${passwordWrong}"><p>Введенные пароли не совпадают!</p></c:if>
+    <form action="${pageContext.request.contextPath}/profi-save-new-account" method="post" name="saveAcc" id="saveAcc">
         <div class="mb-3">
-            <label for="name" class="form-label" style="font-size: 25px; font-weight: bold">Введите Ваше имя</label>
-            <input type="text" class="form-control" id="name">
-        </div>
-        <div class="mb-3">
-            <label for="surName" class="form-label" style="font-size: 25px; font-weight: bold">Введите Вашу фамилию</label>
-            <input type="text" class="form-control" id="surName">
+            <label for="login" class="form-label" style="font-size: 25px; font-weight: bold">Введите логин</label>
+            <input required type="text" class="form-control" id="login" name="login">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label"style="font-size: 25px; font-weight: bold">Введите пароль</label>
-            <input type="password" class="form-control" id="password">
+            <input required type="password" class="form-control" id="password" name="password">
         </div>
         <div class="mb-3">
             <label for="passwordRepeat" class="form-label"style="font-size: 25px; font-weight: bold">Введите пароль повторно</label>
-            <input type="password" class="form-control" id="passwordRepeat">
+            <input required type="password" class="form-control" id="passwordRepeat" name="passwordRepeat">
         </div>
         <div class="mb-3">
-            <label for="role" class="form-label" style="font-size: 25px; font-weight: bold">Кем вы хотите быть?</label>
-            <input type="text" class="form-control" id="role">
+            <label for="role" class="form-label"style="font-size: 25px; font-weight: bold">Кем Вы желаете быть?</label>
+            <select id="role" name="role" class="form-select">
+                <option selected>Кем вы желаете быть?</option>
+                <option value="ROLE_USER" name="role">Пользователь</option>
+                <option value="ROLE_ADMIN" name="role">Специалист</option>
+
+            </select>
         </div>
-        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        <button type="submit" class="btn btn-primary" form="saveAcc">Зарегистрироваться</button>
     </form>
 </div>
 </body>

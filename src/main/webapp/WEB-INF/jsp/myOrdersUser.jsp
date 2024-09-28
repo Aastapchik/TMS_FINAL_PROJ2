@@ -65,14 +65,15 @@
 
                 <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-white">Вернуться
                     на главную</a></li>
-                <li><p>_____________________________________</p></li>
+<%--                <li><p>__________</p></li>--%>
 
                 <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
             </ul>
-            <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
-                Редактировать учётную запись
-            </button>
+
             <div class="text-end">
+                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
+                    Редактировать учётную запись
+                </button>
                 <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
                     Вход для специалистов
                 </button>

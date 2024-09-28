@@ -144,7 +144,6 @@ public class UserRequestDB {
 
             session.update(user);
             session.getTransaction().commit();
-            //session.close();
         }
 
     }
@@ -163,6 +162,38 @@ public class UserRequestDB {
         }
         return scores;
 
+    }
+
+    public static void addToModelUserReview(Model model, int id) {
+        List<UserReview> userReviewsList;
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUserReview = session.createQuery("Select userReviews FROM User Where id =: id");
+            findUserReview.setParameter("id", 1);
+            userReviewsList = findUserReview.getResultList();
+            session.getTransaction().commit();
+
+
+        }
+        if (userReviewsList.size() % 2 == 1) {
+            UserReview userReview = new UserReview();
+            userReview.setGrade(6);
+            userReviewsList.add(userReview);
+        }
+        model.addAttribute("userReviewsList", userReviewsList);
+
+    }
+
+    public static User findUserByUsername(String username) {
+        User user = null;
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where login =: username");
+            findUser.setParameter("username", username);
+            if (!findUser.getResultList().isEmpty()) user = (User) findUser.getResultList().get(0);
+            session.getTransaction().commit();
+        }
+        return user;
     }
 
 

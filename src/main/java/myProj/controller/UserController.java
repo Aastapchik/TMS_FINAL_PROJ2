@@ -73,6 +73,7 @@ public class UserController {
 
     @GetMapping("/profi-user-settings")
     private String showSettingPage(Model model){
+        addToModelUserReview(model, 1);
         addScoreUserFromModel(model, 1);
         getUserOrderFromModel(model, 1);
         getUsernameFromModel(model, 1);
@@ -92,6 +93,7 @@ public class UserController {
         getUsernameFromModel(model, 1);
         getUserCardFromModel(model, 1);
         addScoreUserFromModel(model, 1);
+        addToModelUserReview(model, 1);
         return "userCardPage";
     }
 
