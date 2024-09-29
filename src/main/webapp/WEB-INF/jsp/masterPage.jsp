@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
-<DOCTYPE HTML>
+<!DOCTYPE HTML>
     <html>
 
     <header>
@@ -61,26 +61,29 @@
                             </c:forEach>
                         </ul>
                     </div>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'" type="button">
+                        Посмотреть актуальные заказы
+                    </button>
 
-
-                    <li><a class="nav-link px-2 text-white">___________________Приветствуем, ${nameUser}</a></li>
+                    <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
                 </ul>
 
                 <div class="text-end">
 
-                    <button type="button" class="btn btn-warning">Выйти из аккаунта</button>
+                    <div class="text-end">
+                        <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'" type="button">
+                            Редактировать учётную запись
+                        </button>
+                        <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
+                            Выход
+                        </button>
                 </div>
             </div>
         </div>
     </header>
     <br>
-    <div class="container text-center">
-        <button type="button" class="btn btn-primary btn-lg">Показать возможные заказы</button>
-    </div>
-    <br>
-    <div class="container text-center">
-        <button type="button" class="btn btn-primary btn-lg">Редактировать свой профиль</button>
-    </div>
+
+
 
     </body>
 

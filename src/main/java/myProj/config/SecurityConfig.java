@@ -17,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -34,7 +33,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        //  .requestMatchers("/profi").hasRole("ADMIN")
+                         .requestMatchers("/profi-master-login", "/profi-master-settings").hasRole("ADMIN")
                         .requestMatchers("/profi-user-myorders", "/profi-user-welcome", "/profi-user-create-order",
                                 "/profi-user-save-order", "/profi-user-delete-order", "/profi-user-update-card", "/profi-user-settings").hasRole("USER")
                         .requestMatchers("/profi-welcome", "/profi-registration", "/profi-save-new-account").permitAll()

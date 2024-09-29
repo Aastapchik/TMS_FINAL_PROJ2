@@ -1,11 +1,7 @@
 package myProj.controller;
 
 import myProj.dataBase.request.user.UserRequestDB;
-import myProj.entity.User;
 import myProj.localMemory.Const;
-import myProj.service.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,30 +9,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static java.lang.Math.round;
 import static myProj.dataBase.request.general.GeneralRequest.addModelAllSphereActivity;
 import static myProj.dataBase.request.user.UserRequestDB.*;
 import static myProj.service.UserService.addScoreUserFromModel;
-import static myProj.service.UserService.getAverage;
+import static myProj.service.UserService.getID;
 
 @Controller
 //@RequestMapping(path = "/profi/user")
 public class UserController {
+
+
     @GetMapping(path = "/profi-user-welcome")
     private String pageAfterAuth(Model model) {
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
+        int id = getID();
         getUsernameFromModel(model, id);
-
-        return "startPagePROFI";
+        return "userPage";
     }
 
     @GetMapping("/profi-user-myorders")
     protected String viewingOrders(Model model) {
         model.addAttribute("cities", Const.CITIES);
         model.addAttribute("states", Const.statesOrder);
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
+        int id = getID();
         getUserOrderFromModel(model, id);
         getUsernameFromModel(model, id);
         return "myOrdersUser";
@@ -44,10 +38,9 @@ public class UserController {
 
     @PostMapping("/profi-user-create-order")
     private String creatingOrder(@RequestParam(name = "orderWhichUserWant") String orderName, Model model) {
+        int id = getID();
         addModelAllSphereActivity(model);
         model.addAttribute("nameOrderUser", orderName);
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
         getUsernameFromModel(model, id);
         return "creatingOrder";
     }
@@ -57,8 +50,7 @@ public class UserController {
                              @RequestParam(name = "sphere") String sphere,
                              @RequestParam(name = "descriptionOrder") String description,
                              Model model) {
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
+        int id = getID();
         saveOrderUser(nameOrder, description, sphere, id);
         saveOrderToAvailable(nameOrder, description, sphere);
         model.addAttribute("cities", Const.CITIES);
@@ -74,8 +66,7 @@ public class UserController {
                                @RequestParam(name = "description") String description,
                                @RequestParam(name = "name") String name,
                                Model model) {
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
+        int id = getID();
         deleteOrderUser(name, status, description);
         model.addAttribute("cities", Const.CITIES);
         model.addAttribute("states", Const.statesOrder);
@@ -86,9 +77,8 @@ public class UserController {
     }
 
     @GetMapping("/profi-user-settings")
-    private String showSettingPage(Model model){
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
+    private String showSettingPage(Model model) {
+        int id = getID();
         addToModelUserReview(model, id);
         addScoreUserFromModel(model, id);
         getUserOrderFromModel(model, id);
@@ -103,8 +93,7 @@ public class UserController {
                               @RequestParam(name = "newDescriptionUser") String newDescription,
                               @RequestParam(name = "newSpheresActivityUser") String newSpheresActivityUser,
                               Model model) {
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        int id = UserRequestDB.findUserByUsername(login).getId();
+        int id = getID();
         updateUserCard(newName, newSurname, newSpheresActivityUser, newDescription, id);
         getUserOrderFromModel(model, id);
         getUsernameFromModel(model, id);

@@ -190,6 +190,7 @@ public class UserRequestDB {
             userReview.setGrade(6);
             userReviewsList.add(userReview);
         }
+        System.out.println(userReviewsList.size());
         model.addAttribute("userReviewsList", userReviewsList);
 
     }
