@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
+<!--
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+-->
 <!DOCTYPE HTML>
 <html>
 
@@ -61,7 +63,8 @@
                         </c:forEach>
                     </ul>
                 </div>
-                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-welcome'" type="button">
+                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-welcome'"
+                        type="button">
                     Вернуться на главную
                 </button>
 
@@ -71,7 +74,8 @@
             <div class="text-end">
 
                 <div class="text-end">
-                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'" type="button">
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'"
+                            type="button">
                         Редактировать учётную запись
                     </button>
                     <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
@@ -94,30 +98,20 @@
     <div class="card w-100 mb-3">
         <div class="card-body">
             <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
-
-            <div class="container text-right">
-                <input name="status" type="hidden" value="${order.status}"/>
-                <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                <input name="name" type="hidden" value="${order.nameOrder}"/>
-                <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
-                <hr>
-                <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
-                <hr>
-                <c:choose>
-                    <c:when test="${order.status != states.get(2)}">
-                        <p style="text-align: left; font-size: 25px;">
-                            Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
-                    </c:when>
-                </c:choose>
-            </div>
-            <div class="container text-right">
-                <c:choose>
-                    <c:when test="${order.status == states.get(2)}">
-                        <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
-                    </c:when>
-                </c:choose>
-            </div>
-
+            <form method="post" id="addOrder" name="addOrder" action="${pageContext.request.contextPath}/profi-master-add-order">
+                <div class="container text-right">
+                    <input name="status" type="hidden" value="${order.status}"/>
+                    <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                    <input name="name" type="hidden" value="${order.nameOrder}"/>
+                    <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                    <hr>
+                    <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                    <hr>
+                    <p style="text-align: left; font-size: 25px;">
+                        Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
+                    <button type="submit" class="btn btn-primary" form="addOrder">Отозваться выполнять заказ</button>
+                </div>
+            </form>
         </div>
     </div>
 

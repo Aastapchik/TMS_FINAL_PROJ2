@@ -27,7 +27,7 @@ public class UserOrder {
     @JoinColumn(name="fk_usrs_order")
     private User user;
 
-    @ManyToOne(optional=true, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(optional=false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="fk_executor_id")
     private User master;
 

@@ -13,6 +13,7 @@ import static myProj.dataBase.request.user.UserRequestDB.getUserCardFromModel;
 import static myProj.service.UserService.addScoreUserFromModel;
 import static myProj.service.UserService.getID;
 
+
 @Controller
 //@RequestMapping(path = "/profi/master")
 public class MasterController {
@@ -56,8 +57,37 @@ public class MasterController {
 
     @GetMapping(path ="/profi-master-show-orders")
     private String showingAvailableOrdersMaster(Model model){
+        int id = getID();
+        getUsernameFromModel(model, id);
         MasterRequestDB.getAvailableOrderFromModel(model);
         return "availableOrder";
     }
+
+    @PostMapping(path = "/profi-master-add-order")
+    private String addOrderToMaster(@RequestParam(name = "status") String status,
+                                    @RequestParam(name = "description") String description,
+                                    @RequestParam(name = "name") String name,
+                                    Model model){
+        int id = getID();
+        getUsernameFromModel(model, id);
+        MasterRequestDB.getAvailableOrderFromModel(model);
+        MasterRequestDB.addOrderToMaster(name, status, description);
+        return "availableOrder";
+    }
+
+    @PostMapping(path = "/profi-master-remove-order")
+    private String removeOrderToMaster(@RequestParam(name = "status") String status,
+                                    @RequestParam(name = "description") String description,
+                                    @RequestParam(name = "name") String name,
+                                    Model model){
+        int id = getID();
+        getUsernameFromModel(model, id);
+        MasterRequestDB.getAvailableOrderFromModel(model);
+        MasterRequestDB.addOrderToMaster(name, status, description);
+        return "availableOrder";
+    }
+
+
+
 
 }

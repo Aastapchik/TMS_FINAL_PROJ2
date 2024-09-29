@@ -15,10 +15,12 @@ import org.springframework.ui.Model;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static myProj.dataBase.AppCfg.entityManagerFactory;
+
 public class GeneralRequest {
 
     private static PasswordEncoder passwordEncoder = SecurityConfig.passwordEncoder();
-    private static SessionFactory sf = AppCfg.entityManagerFactory();
+    private static SessionFactory sf = entityManagerFactory();
     private static Transaction tr = sf.getCurrentSession().beginTransaction();
 
 

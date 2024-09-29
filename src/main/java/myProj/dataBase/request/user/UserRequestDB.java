@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 
+import static myProj.dataBase.AppCfg.entityManagerFactory;
+
 @Component
 public class UserRequestDB {
 
-    private static SessionFactory sf = AppCfg.entityManagerFactory();
+    private static SessionFactory sf = entityManagerFactory();
     private static Transaction tr = sf.getCurrentSession().beginTransaction();
 
 
@@ -73,27 +75,27 @@ public class UserRequestDB {
         }
     }
 
-    public static void saveOrderToAvailable(String nameOrder, String description, String sphere) {
-        try (Session session = sf.getCurrentSession()) {
-
-            session.beginTransaction();
-
-            AvailableOrder availableOrder = new AvailableOrder();
-
-            availableOrder.setNameOrder(nameOrder);
-            availableOrder.setDescriptionOrder(description);
-            availableOrder.setStatus(Const.statesOrder.get(2));
-
-            SphereActivity sphereActivity = new SphereActivity();
-            sphereActivity.setNameActivity(sphere);
-            availableOrder.setSphereActivity(sphereActivity);
-
-            session.merge(availableOrder);
-
-            session.getTransaction().commit();
-
-        }
-    }
+//    public static void saveOrderToAvailable(String nameOrder, String description, String sphere) {
+//        try (Session session = sf.getCurrentSession()) {
+//
+//            session.beginTransaction();
+//
+//            AvailableOrder availableOrder = new AvailableOrder();
+//
+//            availableOrder.setNameOrder(nameOrder);
+//            availableOrder.setDescriptionOrder(description);
+//            availableOrder.setStatus(Const.statesOrder.get(2));
+//
+//            SphereActivity sphereActivity = new SphereActivity();
+//            sphereActivity.setNameActivity(sphere);
+//            availableOrder.setSphereActivity(sphereActivity);
+//
+//            session.merge(availableOrder);
+//
+//            session.getTransaction().commit();
+//
+//        }
+//    }
 
     public static void deleteOrderUser(String nameOrder, String status, String description) {
 
@@ -110,7 +112,7 @@ public class UserRequestDB {
     }
 
     public static void getUserCardFromModel(Model model, int id) {
-        UserCard userCard = new UserCard();
+        UserCard userCard;
         try (Session session = sf.getCurrentSession()) {
 
             session.beginTransaction();

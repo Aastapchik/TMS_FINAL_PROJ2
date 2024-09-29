@@ -52,7 +52,7 @@ public class UserController {
                              Model model) {
         int id = getID();
         saveOrderUser(nameOrder, description, sphere, id);
-        saveOrderToAvailable(nameOrder, description, sphere);
+        //saveOrderToAvailable(nameOrder, description, sphere);
         model.addAttribute("cities", Const.CITIES);
         model.addAttribute("states", Const.statesOrder);
         getUserOrderFromModel(model, id);

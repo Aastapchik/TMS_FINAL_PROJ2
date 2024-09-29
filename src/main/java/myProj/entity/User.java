@@ -65,7 +65,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserReview> userReviews = new ArrayList<>();
 
-    // @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "master", fetch = FetchType.LAZY)
     private List<UserOrder> masterOrders = new ArrayList<>();
 
