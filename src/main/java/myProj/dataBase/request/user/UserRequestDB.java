@@ -19,7 +19,6 @@ public class UserRequestDB {
     private static Transaction tr = sf.getCurrentSession().beginTransaction();
 
 
-
     public static void getUserOrderFromModel(Model model, int id) {
         List<UserOrder> userOrderList;
         try (Session session = sf.getCurrentSession()) {
@@ -115,17 +114,11 @@ public class UserRequestDB {
             session.beginTransaction();
             Query getUserCard = session.createQuery("SELECT userCard FROM User where id=:id ");
             getUserCard.setParameter("id", id);
-            if(!getUserCard.getResultList().isEmpty()) {
-                userCard = (UserCard) getUserCard.getResultList().get(0);
-                session.getTransaction().commit();
-            }
-//            else {
-//                session.getTransaction().commit();
-//                userCard.setNumStar(6);
-//                userCard.setName(" ");
-//                userCard.setSurname(" ");
-//                userCard.setDescription(" ");
-//            }
+
+            userCard = (UserCard) getUserCard.getResultList().get(0);
+            session.getTransaction().commit();
+
+
         }
         model.addAttribute("userCard", userCard);
     }
@@ -190,7 +183,6 @@ public class UserRequestDB {
             userReview.setGrade(6);
             userReviewsList.add(userReview);
         }
-        System.out.println(userReviewsList.size());
         model.addAttribute("userReviewsList", userReviewsList);
 
     }
@@ -206,7 +198,6 @@ public class UserRequestDB {
         }
         return user;
     }
-
 
 
 }
