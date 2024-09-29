@@ -27,6 +27,7 @@ public class UserRequestDB {
             Query getUserOrderList = session.createQuery("SELECT userOrders FROM User where id=:id ");
             getUserOrderList.setParameter("id", id);
             userOrderList = getUserOrderList.getResultList();
+            session.getTransaction().commit();
 
         }
         model.addAttribute("orders", userOrderList);
@@ -43,6 +44,7 @@ public class UserRequestDB {
             if (list.isEmpty()) return;
             UserCard userCard = (UserCard) list.get(0);
             username = userCard.getSurname() + " " + userCard.getName();
+            session.getTransaction().commit();
         }
         model.addAttribute("username", username);
     }

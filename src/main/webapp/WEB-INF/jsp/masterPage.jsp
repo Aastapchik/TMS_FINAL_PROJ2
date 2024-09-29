@@ -82,8 +82,46 @@
         </div>
     </header>
     <br>
+    <div class="container text-left">
+        <div class="row">
+            <div class="col" style="font-size: 50px; font-weight: bold">Заказы, которые я выполняю</div>
 
+        </div>
+    </div>
+    <c:forEach items="${masterOrders}" var="order">
+        <br>
+        <div class="container text-center">
+            <div class="card w-100 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
 
+                        <div class="container text-right">
+                            <input name="status" type="hidden" value="${order.status}"/>
+                            <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                            <input name="name" type="hidden" value="${order.nameOrder}"/>
+                            <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                            <hr>
+                            <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                            <hr>
+                            <c:choose>
+                                <c:when test="${order.status != states.get(2)}">
+                                    <p style="text-align: left; font-size: 25px;">
+                                        Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                        <div class="container text-right">
+                            <c:choose>
+                                <c:when test="${order.status == states.get(2)}">
+                                    <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
+                                </c:when>
+                            </c:choose>
+                        </div>
+
+                </div>
+            </div>
+
+    </c:forEach>
 
     </body>
 

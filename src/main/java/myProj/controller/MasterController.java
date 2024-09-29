@@ -1,11 +1,13 @@
 package myProj.controller;
 
+import myProj.dataBase.request.master.MasterRequestDB;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static myProj.dataBase.request.master.MasterRequestDB.getMasterOrderFromModel;
 import static myProj.dataBase.request.user.UserRequestDB.*;
 import static myProj.dataBase.request.user.UserRequestDB.getUserCardFromModel;
 import static myProj.service.UserService.addScoreUserFromModel;
@@ -19,6 +21,7 @@ public class MasterController {
     private String loginMaster(Model model){
         int id = getID();
         getUsernameFromModel(model, id);
+        getMasterOrderFromModel(model,id);
         return "masterPage";
     }
 
