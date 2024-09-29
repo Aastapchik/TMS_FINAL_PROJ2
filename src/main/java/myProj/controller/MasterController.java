@@ -38,7 +38,7 @@ public class MasterController {
     }
 
 
-    @PostMapping("/profi-master-update-card")
+    @PostMapping(path ="/profi-master-update-card")
     private String updateMaster(@RequestParam(name = "newNameUser") String newName,
                               @RequestParam(name = "newSurnameUser") String newSurname,
                               @RequestParam(name = "newDescriptionUser") String newDescription,
@@ -52,6 +52,12 @@ public class MasterController {
         addScoreUserFromModel(model, id);
         addToModelUserReview(model, id);
         return "masterCardPage";
+    }
+
+    @GetMapping(path ="/profi-master-show-orders")
+    private String showingAvailableOrdersMaster(Model model){
+        MasterRequestDB.getAvailableOrderFromModel(model);
+        return "availableOrder";
     }
 
 }

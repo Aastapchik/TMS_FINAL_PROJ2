@@ -61,7 +61,7 @@
                             </c:forEach>
                         </ul>
                     </div>
-                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'" type="button">
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-show-orders'" type="button">
                         Посмотреть актуальные заказы
                     </button>
 
