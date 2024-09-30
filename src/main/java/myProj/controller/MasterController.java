@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static myProj.dataBase.request.master.MasterRequestDB.getMasterOrderFromModel;
+import static myProj.dataBase.request.master.MasterRequestDB.*;
 import static myProj.dataBase.request.user.UserRequestDB.*;
 import static myProj.dataBase.request.user.UserRequestDB.getUserCardFromModel;
 import static myProj.service.UserService.addScoreUserFromModel;
@@ -59,32 +59,32 @@ public class MasterController {
     private String showingAvailableOrdersMaster(Model model){
         int id = getID();
         getUsernameFromModel(model, id);
-        MasterRequestDB.getAvailableOrderFromModel(model);
+        getAvailableOrderFromModel(model);
         return "availableOrder";
     }
 
     @PostMapping(path = "/profi-master-add-order")
-    private String addOrderToMaster(@RequestParam(name = "status") String status,
+    private String addOrderMaster(@RequestParam(name = "status") String status,
                                     @RequestParam(name = "description") String description,
                                     @RequestParam(name = "name") String name,
                                     Model model){
         int id = getID();
         getUsernameFromModel(model, id);
-        MasterRequestDB.getAvailableOrderFromModel(model);
-        MasterRequestDB.addOrderToMaster(name, status, description);
+        getAvailableOrderFromModel(model);
+        addOrderToMaster(name, status, description);
         return "availableOrder";
     }
 
     @PostMapping(path = "/profi-master-remove-order")
-    private String removeOrderToMaster(@RequestParam(name = "status") String status,
+    private String removeOrderMaster(@RequestParam(name = "status") String status,
                                     @RequestParam(name = "description") String description,
                                     @RequestParam(name = "name") String name,
                                     Model model){
         int id = getID();
         getUsernameFromModel(model, id);
-        MasterRequestDB.getAvailableOrderFromModel(model);
-        MasterRequestDB.addOrderToMaster(name, status, description);
-        return "availableOrder";
+        removeOrderToMaster(name, status, description);
+        getMasterOrderFromModel(model,id);
+        return "masterPage";
     }
 
 

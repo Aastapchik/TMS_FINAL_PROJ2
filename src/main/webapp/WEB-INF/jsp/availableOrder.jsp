@@ -98,7 +98,8 @@
     <div class="card w-100 mb-3">
         <div class="card-body">
             <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
-            <form method="post" id="addOrder" name="addOrder" action="${pageContext.request.contextPath}/profi-master-add-order">
+            <form method="post" id="addOrder" name="addOrder"
+                  action="${pageContext.request.contextPath}/profi-master-add-order">
                 <div class="container text-right">
                     <input name="status" type="hidden" value="${order.status}"/>
                     <input name="description" type="hidden" value="${order.descriptionOrder}"/>
@@ -114,7 +115,7 @@
             </form>
         </div>
     </div>
-
+</div>
     </c:forEach>
 
 </body>

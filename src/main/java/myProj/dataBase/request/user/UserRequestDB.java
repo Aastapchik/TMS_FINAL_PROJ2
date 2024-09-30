@@ -1,7 +1,9 @@
 package myProj.dataBase.request.user;
 
-import myProj.dataBase.AppCfg;
-import myProj.entity.*;
+import myProj.entity.User;
+import myProj.entity.UserCard;
+import myProj.entity.UserOrder;
+import myProj.entity.UserReview;
 import myProj.localMemory.Const;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +12,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static myProj.dataBase.AppCfg.entityManagerFactory;
@@ -60,14 +63,15 @@ public class UserRequestDB {
 
             User user = (User) findUser.getResultList().get(0);
 
+
             UserOrder userOrder = new UserOrder();
 
             userOrder.setNameOrder(nameOrder);
             userOrder.setStatus(Const.statesOrder.get(2));
             userOrder.setDescriptionOrder(description);
-            userOrder.setUser(user);
 
-            session.save(userOrder);
+            userOrder.setUser(user);
+            session.persist(userOrder);
 
             session.getTransaction().commit();
 

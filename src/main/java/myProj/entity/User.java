@@ -55,7 +55,7 @@ public class User {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserAOrder> userAOrders = new ArrayList<>();
+    private List<UserAOrder> userAOrders;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

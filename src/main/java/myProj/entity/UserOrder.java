@@ -27,7 +27,7 @@ public class UserOrder {
     @JoinColumn(name="fk_usrs_order")
     private User user;
 
-    @ManyToOne(optional=false, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="fk_executor_id")
     private User master;
 
@@ -36,7 +36,10 @@ public class UserOrder {
         return "UserOrder{" +
                 "id=" + id +
                 ", nameOrder='" + nameOrder + '\'' +
+                ", status='" + status + '\'' +
+                ", descriptionOrder='" + descriptionOrder + '\'' +
                 ", user=" + user +
+                ", master=" + master +
                 '}';
     }
 }
