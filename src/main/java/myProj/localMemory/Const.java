@@ -7,6 +7,6 @@ public interface Const {
 
     public List<String> CITIES = Arrays.asList("Минск", "Витебск", "Могилев", "Гродно", "Гомель", "Брест");
 
-    public List<String> statesOrder = Arrays.asList("Отменён", "Выполняется", "Ожидание", "Исполнен");
+    public List<String> STATES_ORDER = Arrays.asList("Отменён", "Выполняется", "Ожидание", "Исполнен");
 
 }

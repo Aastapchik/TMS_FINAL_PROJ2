@@ -100,30 +100,53 @@
     </div>
 </c:if>
 <c:forEach items="${masterOrders}" var="order">
-<br>
-<div class="container text-center">
-    <div class="card w-100 mb-3">
-        <div class="card-body">
-            <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
-            <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post" name="removeOrder" id="removeOrder">
+    <br>
+    <div class="container text-center">
+        <div class="card w-100 mb-3">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
                 <div class="container text-right">
-                    <input name="status" type="hidden" value="${order.status}"/>
-                    <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                    <input name="name" type="hidden" value="${order.nameOrder}"/>
-                    <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
-                    <hr>
-                    <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
-                    <hr>
-                    <p style="text-align: left; font-size: 25px;">
-                        Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
-                    <button type="submit" form="removeOrder" class="btn btn-danger">Отказаться от заказа</button>
-                </div>
-            </form>
+                    <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post"
+                          name="removeOrder" id="removeOrder">
 
+                        <input name="status" type="hidden" value="${order.status}"/>
+                        <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                        <input name="name" type="hidden" value="${order.nameOrder}"/>
+                        <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                        <hr>
+                        <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                        <hr>
+                        <p style="text-align: left; font-size: 25px;">
+                            Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
+                    </form>
+                    <c:choose>
+                        <c:when test="${order.status != state.get(0) && order.status != state.get(2)}">
+
+                                <button type="submit" form="removeOrder" class="btn btn-danger">Отказаться от заказа
+                                </button>
+                           
+
+                            <br>
+                            <form action="${pageContext.request.contextPath}/profi-master-report-completion"
+                                  method="post"
+                                  name="reportCompletion" id="reportCompletion">
+                                <input name="status" type="hidden" value="${order.status}"/>
+                                <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                                <input name="name" type="hidden" value="${order.nameOrder}"/>
+                                <button type="submit" form="reportCompletion" class="btn btn-danger">Сообщить о
+                                    завершении
+                                    выполнения
+                                </button>
+                            </form>
+                        </c:when>
+                    </c:choose>
+                </div>
+            </div>
         </div>
     </div>
+    </div>
+</c:forEach>
 
-    </c:forEach>
 
 </body>
 

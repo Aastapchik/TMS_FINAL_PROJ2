@@ -74,7 +74,7 @@
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
                     Редактировать учётную запись
                 </button>
-                <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
+                <button class="btn btn-warning" onclick="location.href='/profi-master-welcome'" type="button">
                     Вход для специалистов
                 </button>
 

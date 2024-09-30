@@ -1,8 +1,6 @@
 package myProj.controller;
 
-import myProj.dataBase.request.user.UserRequestDB;
 import myProj.localMemory.Const;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +27,7 @@ public class UserController {
     @GetMapping("/profi-user-myorders")
     protected String viewingOrders(Model model) {
         model.addAttribute("cities", Const.CITIES);
-        model.addAttribute("states", Const.statesOrder);
+        model.addAttribute("states", Const.STATES_ORDER);
         int id = getID();
         getUserOrderFromModel(model, id);
         getUsernameFromModel(model, id);
@@ -54,7 +52,7 @@ public class UserController {
         saveOrderUser(nameOrder, description, sphere, id);
         //saveOrderToAvailable(nameOrder, description, sphere);
         model.addAttribute("cities", Const.CITIES);
-        model.addAttribute("states", Const.statesOrder);
+        model.addAttribute("states", Const.STATES_ORDER);
         getUserOrderFromModel(model, id);
         getUsernameFromModel(model, id);
 
@@ -69,7 +67,7 @@ public class UserController {
         int id = getID();
         deleteOrderUser(name, status, description);
         model.addAttribute("cities", Const.CITIES);
-        model.addAttribute("states", Const.statesOrder);
+        model.addAttribute("states", Const.STATES_ORDER);
         getUserOrderFromModel(model, id);
         getUsernameFromModel(model, id);
 

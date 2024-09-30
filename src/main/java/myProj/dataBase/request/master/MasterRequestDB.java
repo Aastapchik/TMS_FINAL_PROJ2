@@ -45,7 +45,7 @@ public class MasterRequestDB {
         }
         List<UserOrder> actualOrderList = new ArrayList<>();
         for (UserOrder userOrder : availableOrderList)
-            if (userOrder.getStatus().equals(Const.statesOrder.get(2))) actualOrderList.add(userOrder);
+            if (userOrder.getStatus().equals(Const.STATES_ORDER.get(2))) actualOrderList.add(userOrder);
 
         model.addAttribute("availableOrders", actualOrderList);
     }
@@ -55,12 +55,12 @@ public class MasterRequestDB {
             session.beginTransaction();
             Query query = session.createQuery("FROM UserOrder WHERE nameOrder =: nameOrder AND status =: status AND descriptionOrder =: description");
             query.setParameter("nameOrder", nameOrder);
-            query.setParameter("status", Const.statesOrder.get(2));
+            query.setParameter("status", Const.STATES_ORDER.get(2));
             query.setParameter("description", description);
             UserOrder userOrder = (UserOrder) query.getResultList().get(0);
 
             userOrder.setMaster(UserRequestDB.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-            userOrder.setStatus(Const.statesOrder.get(1));
+            userOrder.setStatus(Const.STATES_ORDER.get(1));
             session.update(userOrder);
             session.getTransaction().commit();
         }
@@ -71,13 +71,25 @@ public class MasterRequestDB {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query up = session.createQuery("UPDATE UserOrder SET status =: status, master =: master WHERE nameOrder =: nameOrder AND descriptionOrder =: description ");
-            up.setParameter("nameOrder", nameOrder.trim());
-            up.setParameter("status", Const.statesOrder.get(2));
+            up.setParameter("nameOrder", nameOrder);
+            up.setParameter("status", Const.STATES_ORDER.get(2));
             up.setParameter("description", description);
             up.setParameter("master", null);
             up.executeUpdate();
             session.getTransaction().commit();
         }
+    }
 
+
+    public static void approveOrderMaster(String nameOrder, String status, String description){
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query up = session.createQuery("UPDATE UserOrder SET status =: status WHERE nameOrder =: nameOrder AND descriptionOrder =: description");
+            up.setParameter("nameOrder", nameOrder);
+            up.setParameter("status", Const.STATES_ORDER.get(3));
+            up.setParameter("description", description);
+            up.executeUpdate();
+            session.getTransaction().commit();
+        }
     }
 }

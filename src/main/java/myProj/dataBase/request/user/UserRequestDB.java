@@ -12,7 +12,6 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static myProj.dataBase.AppCfg.entityManagerFactory;
@@ -67,7 +66,7 @@ public class UserRequestDB {
             UserOrder userOrder = new UserOrder();
 
             userOrder.setNameOrder(nameOrder);
-            userOrder.setStatus(Const.statesOrder.get(2));
+            userOrder.setStatus(Const.STATES_ORDER.get(2));
             userOrder.setDescriptionOrder(description);
 
             userOrder.setUser(user);
@@ -125,8 +124,6 @@ public class UserRequestDB {
 
             userCard = (UserCard) getUserCard.getResultList().get(0);
             session.getTransaction().commit();
-
-
         }
         model.addAttribute("userCard", userCard);
     }
@@ -206,6 +203,7 @@ public class UserRequestDB {
         }
         return user;
     }
+
 
 
 }
