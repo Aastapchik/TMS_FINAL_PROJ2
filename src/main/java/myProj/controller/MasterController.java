@@ -108,7 +108,7 @@ public class MasterController {
         model.addAttribute("idUser", idUser);
         int id = getID();
         getUsernameFromModel(model, id);
-        return "addReviewUser";
+        return "addReviewMaster";
     }
 
     @PostMapping(path = "/profi-master-add-review")

@@ -154,7 +154,7 @@
 </header>
 <br>
 
-<form action="${pageContext.request.contextPath}/profi-user-add-review" method="post">
+<form action="${pageContext.request.contextPath}/profi-master-add-review" method="post">
     <div class="container text-left">
 
         <br>

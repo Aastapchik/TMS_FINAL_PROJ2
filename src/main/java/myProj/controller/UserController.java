@@ -103,25 +103,27 @@ public class UserController {
     }
 
 
-//    @PostMapping(path = "/profi-user-show-review")
-//    private String showReviewMaster(@RequestParam(name = "idUser") String idUser, Model model) {
-//        model.addAttribute("idUser", idUser);
-//        int id = getID();
-//        getUsernameFromModel(model, id);
-//        return "addReviewUser";
-//    }
-//
-//    @PostMapping(path = "/profi-user-add-review")
-//    private String addReviewMasterPost(@RequestParam(name = "review") String review,
-//                                       @RequestParam(name = "rating") int grade,
-//                                       @RequestParam(name = "idUser") String idUser,
-//                                       Model model) {
-//        int id = getID();
-//        getUsernameFromModel(model, id);
-//        model.addAttribute("states", Const.STATES_ORDER);
-//        getMasterOrderFromModel(model, id);
-//        addReviewFromUser(Integer.parseInt(idUser), review, grade);
-//        return "masterPage";
-//    }TODO ДОДЕЛАТЬ!!!!!!!!!!
+    @PostMapping(path = "/profi-user-show-review")
+    private String showReviewMaster(@RequestParam(name = "idUser") String idUser, Model model) {
+        model.addAttribute("idUser", idUser);
+        int id = getID();
+        getUsernameFromModel(model, id);
+        return "addReviewUser";
+    }
+
+    @PostMapping(path = "/profi-user-add-review")
+    private String addReviewMasterPost(@RequestParam(name = "review") String review,
+                                       @RequestParam(name = "rating") int grade,
+                                       @RequestParam(name = "idUser") String idUser,
+                                       Model model) {
+        int id = getID();
+        getUsernameFromModel(model, id);
+        model.addAttribute("cities", Const.CITIES);
+        model.addAttribute("states", Const.STATES_ORDER);
+        getUserOrderFromModel(model, id);
+        getUsernameFromModel(model, id);
+        addReviewFromUser(Integer.parseInt(idUser), review, grade);
+        return "myOrdersUser";
+    }
 
 }

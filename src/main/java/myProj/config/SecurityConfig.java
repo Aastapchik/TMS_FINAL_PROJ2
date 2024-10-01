@@ -36,7 +36,7 @@ public class SecurityConfig {
                          .requestMatchers("/profi-master-welcome", "/profi-master-settings", "/profi-master-update-card", "/profi-master-show-orders",
                                  "/profi-master-add-order", "/profi-master-remove-order", "/profi-master-report-completion", "/profi-master-add-review", "/profi-master-show-review").hasRole("ADMIN")
                         .requestMatchers("/profi-user-myorders", "/profi-user-welcome", "/profi-user-create-order",
-                                "/profi-user-save-order", "/profi-user-delete-order", "/profi-user-update-card", "/profi-user-settings").hasRole("USER")
+                                "/profi-user-save-order", "/profi-user-delete-order", "/profi-user-update-card", "/profi-user-settings", "/profi-user-show-review", "/profi-user-add-review").hasRole("USER")
                         .requestMatchers("/profi-welcome", "/profi-registration", "/profi-save-new-account").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
 

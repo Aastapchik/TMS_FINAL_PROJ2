@@ -65,7 +65,7 @@
 
                 <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-white">Вернуться
                     на главную</a></li>
-<%--                <li><p>__________</p></li>--%>
+                <%--                <li><p>__________</p></li>--%>
 
                 <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
             </ul>
@@ -121,51 +121,58 @@
 
 
 <c:forEach items="${orders}" var="order">
-<br>
-<div class="container text-center">
-    <div class="card w-100 mb-3">
-        <div class="card-body">
-            <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
+    <br>
+    <div class="container text-center">
+        <div class="card w-100 mb-3">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
 
-            <form name="delete" id="delete${order.getId()}" method="post"
-                  action="${pageContext.request.contextPath}/profi-user-delete-order">
+                <form name="delete" id="delete${order.getId()}" method="post"
+                      action="${pageContext.request.contextPath}/profi-user-delete-order">
 
-                <div class="container text-right">
-                    <input name="status" type="hidden" value="${order.status}"/>
-                    <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                    <input name="name" type="hidden" value="${order.nameOrder}"/>
-                    <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
-                    <hr>
-                    <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
-                    <hr>
-                    <c:choose>
-                        <c:when test="${order.status == states.get(1)}">
+                    <div class="container text-right">
+                        <input name="status" type="hidden" value="${order.status}"/>
+                        <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                        <input name="name" type="hidden" value="${order.nameOrder}"/>
+                        <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                        <hr>
+                        <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                        <hr>
+                            <%--                        <c:choose>--%>
+                        <c:if test="${order.status == states.get(1)}">
                             <p style="text-align: left; font-size: 25px;">
                                 Исполнитель: ${order.master.getUserCard().getName()} ${order.master.getUserCard().getSurname()} </p>
-                        </c:when>
-                    </c:choose>
-                </div>
-                <div class="container text-right">
-                    <c:choose>
-                        <c:when test="${order.status == states.get(2)}">
+                        </c:if>
+                            <%--                        </c:choose>--%>
+                    </div>
+                    <div class="container text-right">
+                            <%--                        <c:choose>--%>
+                        <c:if test="${order.status == states.get(2)}">
                             <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
-                            <button type="submit" class="btn btn-danger" form="delete${order.getId()}" style="text-align: right">Удалить
+                            <button type="submit" class="btn btn-danger" form="delete${order.getId()}"
+                                    style="text-align: right">Удалить
                                 заказ
                             </button>
-                        </c:when>
-                        <c:when test="${order.status == states.get(3)}">
-                            <p style="text-align: left; font-size: 25px;">Вы можете оставить отзыв Вашему исполнителю </p>
-                            <button type="submit" class="btn btn-danger" form="delete${order.getId()}" style="text-align: right">Удалить
-                                заказ
-                            </button>
-                        </c:when>
-                    </c:choose>
-                </div>
-            </form>
+                        </c:if>
+                    </div>
+                </form>
+                <c:if test="${order.status == states.get(3)}">
+                    <form action="${pageContext.request.contextPath}/profi-user-show-review"
+                          method="post"
+                          name="reportCompletion" id="addReview${order.getId()}">
+                        <input name="idUser" type="hidden" value="${order.getMaster().getId()}"/>
+                        <br>
+                        <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">
+                            Оставить отзыв о мастере
+                        </button>
+                    </form>
+                </c:if>
+                    <%--                </c:choose>--%>
+            </div>
         </div>
     </div>
 
-    </c:forEach>
+</c:forEach>
 
 </body>
 
