@@ -99,15 +99,17 @@
         <p style="font-size: 15px; color: #cc6600; font-weight: bold">Пока таких заказов нет</p>
     </div>
 </c:if>
-<c:forEach items="${masterOrders}" var="order">
+<c:forEach items="${masterOrders}" var="order" varStatus="i">
     <br>
     <div class="container text-center">
         <div class="card w-100 mb-3">
             <div class="card-body">
                 <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
                 <div class="container text-right">
+
                     <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post"
                           name="removeOrder" id="removeOrder${order.getId()}">
+
 
                         <input name="status" type="hidden" value="${order.status}"/>
                         <input name="description" type="hidden" value="${order.descriptionOrder}"/>
@@ -120,24 +122,38 @@
                             Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
                     </form>
 
-                        <c:if test="${order.status == states.get(1)}">fff</c:if>
-                            <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger">Отказаться от заказа
-                            </button>
-
-
+                    <c:if test="${flagList.get(i.index)}">
+                        <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger">Отказаться
+                            от
+                            заказа
+                        </button>
+                        <br>
+                        <form action="${pageContext.request.contextPath}/profi-master-report-completion"
+                              method="post"
+                              name="reportCompletion" id="reportCompletion${order.getId()}">
+                            <input name="status" type="hidden" value="${order.status}"/>
+                            <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                            <input name="name" type="hidden" value="${order.nameOrder}"/>
                             <br>
-                            <form action="${pageContext.request.contextPath}/profi-master-report-completion"
-                                  method="post"
-                                  name="reportCompletion" id="reportCompletion${order.getId()}">
-                                <input name="status" type="hidden" value="${order.status}"/>
-                                <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                                <input name="name" type="hidden" value="${order.nameOrder}"/>
-                                <br>
-                                <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">Сообщить о
-                                    завершении
-                                    выполнения
-                                </button>
-                            </form>
+                            <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">
+                                Сообщить о
+                                завершении
+                                выполнения
+                            </button>
+                        </form>
+                    </c:if>
+                    <c:if test="${!flagList.get(i.index)}">
+                        <form action="${pageContext.request.contextPath}/profi-master-show-review"
+                              method="post"
+                              name="reportCompletion" id="addReview${order.getId()}">
+                            <input name="idUser" type="hidden" value="${order.getUser().getId()}"/>
+                            <br>
+                            <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">
+                                Оставить отзыв о заказчике
+                            </button>
+                        </form>
+                    </c:if>
+
 
                 </div>
             </div>

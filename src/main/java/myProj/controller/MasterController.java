@@ -3,10 +3,7 @@ package myProj.controller;
 import myProj.localMemory.Const;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import static myProj.dataBase.request.master.MasterRequestDB.*;
 import static myProj.dataBase.request.user.UserRequestDB.*;
@@ -95,7 +92,6 @@ public class MasterController {
     private String setApproveOrder(@RequestParam(name = "status") String status,
                                    @RequestParam(name = "description") String description,
                                    @RequestParam(name = "name") String name,
-                                   //@PathVariable(name = "id") int idUser,
                                    Model model) {
         int id = getID();
         model.addAttribute("states", Const.STATES_ORDER);
@@ -104,6 +100,28 @@ public class MasterController {
         getMasterOrderFromModel(model, id);
         return "masterPage";
 
+    }
 
+
+    @PostMapping(path = "/profi-master-show-review")
+    private String showReviewMaster(@RequestParam(name = "idUser") String idUser, Model model) {
+        model.addAttribute("idUser", idUser);
+        int id = getID();
+        getUsernameFromModel(model, id);
+        return "addReviewUser";
     }
+
+    @PostMapping(path = "/profi-master-add-review")
+    private String addReviewMasterPost(@RequestParam(name = "review") String review,
+                                       @RequestParam(name = "rating") int grade,
+                                       @RequestParam(name = "idUser") String idUser,
+                                       Model model) {
+        int id = getID();
+        getUsernameFromModel(model, id);
+        model.addAttribute("states", Const.STATES_ORDER);
+        getMasterOrderFromModel(model, id);
+        addReviewFromUser(Integer.parseInt(idUser), review, grade);
+        return "masterPage";
     }
+
+}

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static myProj.dataBase.request.general.GeneralRequest.addModelAllSphereActivity;
+import static myProj.dataBase.request.master.MasterRequestDB.getMasterOrderFromModel;
 import static myProj.dataBase.request.user.UserRequestDB.*;
 import static myProj.service.UserService.addScoreUserFromModel;
 import static myProj.service.UserService.getID;
@@ -100,5 +101,27 @@ public class UserController {
         addToModelUserReview(model, id);
         return "userCardPage";
     }
+
+
+//    @PostMapping(path = "/profi-user-show-review")
+//    private String showReviewMaster(@RequestParam(name = "idUser") String idUser, Model model) {
+//        model.addAttribute("idUser", idUser);
+//        int id = getID();
+//        getUsernameFromModel(model, id);
+//        return "addReviewUser";
+//    }
+//
+//    @PostMapping(path = "/profi-user-add-review")
+//    private String addReviewMasterPost(@RequestParam(name = "review") String review,
+//                                       @RequestParam(name = "rating") int grade,
+//                                       @RequestParam(name = "idUser") String idUser,
+//                                       Model model) {
+//        int id = getID();
+//        getUsernameFromModel(model, id);
+//        model.addAttribute("states", Const.STATES_ORDER);
+//        getMasterOrderFromModel(model, id);
+//        addReviewFromUser(Integer.parseInt(idUser), review, grade);
+//        return "masterPage";
+//    }TODO ДОДЕЛАТЬ!!!!!!!!!!
 
 }

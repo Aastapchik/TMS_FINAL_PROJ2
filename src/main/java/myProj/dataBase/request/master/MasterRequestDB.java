@@ -30,7 +30,12 @@ public class MasterRequestDB {
             masterOrderList = getMasterOrderList.getResultList();
             if (tr.isActive()) tr.commit();
         }
+        List<Boolean> flagList = new ArrayList<>();
+        for (int i = 0; i < masterOrderList.size(); i++)
+            if (masterOrderList.get(i).getStatus().equals(Const.STATES_ORDER.get(3))) flagList.add(false);
+            else flagList.add(true);
         model.addAttribute("masterOrders", masterOrderList);
+        model.addAttribute("flagList", flagList);
     }
 
     public static void getAvailableOrderFromModel(Model model) {
@@ -81,7 +86,7 @@ public class MasterRequestDB {
     }
 
 
-    public static void approveOrderMaster(String nameOrder, String status, String description){
+    public static void approveOrderMaster(String nameOrder, String status, String description) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query up = session.createQuery("UPDATE UserOrder SET status =: status WHERE nameOrder =: nameOrder AND descriptionOrder =: description");
@@ -92,4 +97,6 @@ public class MasterRequestDB {
             session.getTransaction().commit();
         }
     }
+
+
 }

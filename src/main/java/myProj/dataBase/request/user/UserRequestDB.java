@@ -204,6 +204,21 @@ public class UserRequestDB {
         return user;
     }
 
+    public static void addReviewFromUser(int idUser, String review, int grade){
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where id =: id");
+            findUser.setParameter("id", idUser);
+            User client = (User) findUser.getResultList().get(0);
+            UserReview userReview = new UserReview();
+            userReview.setReview(review);
+            userReview.setUser(client);
+            userReview.setGrade(grade);
+            session.save(userReview);
+
+            session.getTransaction().commit();
+        }
+    }
 
 
 }
