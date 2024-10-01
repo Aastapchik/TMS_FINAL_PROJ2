@@ -127,7 +127,7 @@
         <div class="card-body">
             <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
 
-            <form name="delete" id="delete" method="post"
+            <form name="delete" id="delete${order.getId()}" method="post"
                   action="${pageContext.request.contextPath}/profi-user-delete-order">
 
                 <div class="container text-right">
@@ -139,7 +139,7 @@
                     <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
                     <hr>
                     <c:choose>
-                        <c:when test="${order.status != states.get(2)}">
+                        <c:when test="${order.status == states.get(1)}">
                             <p style="text-align: left; font-size: 25px;">
                                 Исполнитель: ${order.master.getUserCard().getName()} ${order.master.getUserCard().getSurname()} </p>
                         </c:when>
@@ -149,7 +149,13 @@
                     <c:choose>
                         <c:when test="${order.status == states.get(2)}">
                             <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
-                            <button type="submit" class="btn btn-danger" form="delete" style="text-align: right">Удалить
+                            <button type="submit" class="btn btn-danger" form="delete${order.getId()}" style="text-align: right">Удалить
+                                заказ
+                            </button>
+                        </c:when>
+                        <c:when test="${order.status == states.get(3)}">
+                            <p style="text-align: left; font-size: 25px;">Вы можете оставить отзыв Вашему исполнителю </p>
+                            <button type="submit" class="btn btn-danger" form="delete${order.getId()}" style="text-align: right">Удалить
                                 заказ
                             </button>
                         </c:when>

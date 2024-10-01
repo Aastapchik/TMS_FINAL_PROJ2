@@ -107,7 +107,7 @@
                 <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
                 <div class="container text-right">
                     <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post"
-                          name="removeOrder" id="removeOrder">
+                          name="removeOrder" id="removeOrder${order.getId()}">
 
                         <input name="status" type="hidden" value="${order.status}"/>
                         <input name="description" type="hidden" value="${order.descriptionOrder}"/>
@@ -119,34 +119,32 @@
                         <p style="text-align: left; font-size: 25px;">
                             Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
                     </form>
-                    <c:choose>
-                        <c:when test="${order.status != state.get(0) && order.status != state.get(2)}">
 
-                                <button type="submit" form="removeOrder" class="btn btn-danger">Отказаться от заказа
-                                </button>
-                           
+                        <c:if test="${order.status == states.get(1)}">fff</c:if>
+                            <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger">Отказаться от заказа
+                            </button>
+
 
                             <br>
                             <form action="${pageContext.request.contextPath}/profi-master-report-completion"
                                   method="post"
-                                  name="reportCompletion" id="reportCompletion">
+                                  name="reportCompletion" id="reportCompletion${order.getId()}">
                                 <input name="status" type="hidden" value="${order.status}"/>
                                 <input name="description" type="hidden" value="${order.descriptionOrder}"/>
                                 <input name="name" type="hidden" value="${order.nameOrder}"/>
-                                <button type="submit" form="reportCompletion" class="btn btn-danger">Сообщить о
+                                <br>
+                                <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">Сообщить о
                                     завершении
                                     выполнения
                                 </button>
                             </form>
-                        </c:when>
-                    </c:choose>
+
                 </div>
             </div>
         </div>
     </div>
-    </div>
-</c:forEach>
 
+</c:forEach>
 
 </body>
 

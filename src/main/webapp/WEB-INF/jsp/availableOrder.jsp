@@ -98,7 +98,7 @@
     <div class="card w-100 mb-3">
         <div class="card-body">
             <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
-            <form method="post" id="addOrder" name="addOrder"
+            <form method="post" id="addOrder${order.getId()}" name="addOrder"
                   action="${pageContext.request.contextPath}/profi-master-add-order">
                 <div class="container text-right">
                     <input name="status" type="hidden" value="${order.status}"/>
@@ -110,7 +110,7 @@
                     <hr>
                     <p style="text-align: left; font-size: 25px;">
                         Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
-                    <button type="submit" class="btn btn-primary" form="addOrder">Отозваться выполнять заказ</button>
+                    <button type="submit" class="btn btn-primary" form="addOrder${order.getId()}">Отозваться выполнять заказ</button>
                 </div>
             </form>
         </div>

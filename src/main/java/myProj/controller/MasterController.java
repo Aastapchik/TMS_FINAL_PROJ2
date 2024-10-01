@@ -4,6 +4,7 @@ import myProj.localMemory.Const;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -94,6 +95,7 @@ public class MasterController {
     private String setApproveOrder(@RequestParam(name = "status") String status,
                                    @RequestParam(name = "description") String description,
                                    @RequestParam(name = "name") String name,
+                                   //@PathVariable(name = "id") int idUser,
                                    Model model) {
         int id = getID();
         model.addAttribute("states", Const.STATES_ORDER);
