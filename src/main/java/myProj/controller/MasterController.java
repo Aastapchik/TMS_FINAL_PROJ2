@@ -1,6 +1,7 @@
 package myProj.controller;
 
 import myProj.service.MasterControllerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 //@RequestMapping(path = "/profi/master")
 public class MasterController {
 
+    @Autowired
     MasterControllerService masterControllerService;
 
     @GetMapping(path = "/profi-master-welcome")
