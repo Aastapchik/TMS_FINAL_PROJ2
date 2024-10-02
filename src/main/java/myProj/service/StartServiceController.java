@@ -1,6 +1,7 @@
 package myProj.service;
 
 
+import jakarta.transaction.Transactional;
 import myProj.entity.User;
 import myProj.localMemory.Const;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import static myProj.dataBase.request.general.GeneralRequest.saveUser;
 import static myProj.dataBase.request.user.UserRequestDB.findUserByUsername;
 
 @Service
+@Transactional
 public class StartServiceController {
 
     public void welcomeGuest(Model model) {

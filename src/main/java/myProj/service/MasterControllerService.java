@@ -1,5 +1,6 @@
 package myProj.service;
 
+import jakarta.transaction.Transactional;
 import myProj.localMemory.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import static myProj.service.UserService.addScoreUserFromModel;
 import static myProj.service.UserService.getID;
 
 @Service
+@Transactional
 public class MasterControllerService {
 
 
