@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -151,6 +152,8 @@
             </ul>
         </div>
     </div>
+    <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+    <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
 </header>
 <br>
 
@@ -161,27 +164,27 @@
         <div class="form-floating">
             <input class="form-control" placeholder="Подробное описание заказа или услуги" id="floatingTextarea2"
                    name="review" style="height: 250px">
-            <label for="floatingTextarea2">Оставьте Ваш отзыв для ${surnameUser} ${nameUser}</label>
+            <label for="floatingTextarea2"> <locale:message key="leave_your_review_for"/> ${surnameUser} ${nameUser}</label>
         </div>
         <br>
         <input name="idUser" type="hidden" value="${idUser}"/>
         <div class="rating-area">
-            <p style="color: burlywood; font-weight: bold;">Поставьте свою оценку: </p>
+            <p style="color: burlywood; font-weight: bold;"> <locale:message key="put_your_rating"/>: </p>
             <input type="radio" id="star5" name="rating" value="5">
-            <label for="star5" title="Оценка «5»"></label>
+            <label for="star5" title="<locale:message key="grade"/> «5»"></label>
             <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4" title="Оценка «4»"></label>
+            <label for="star4" title="<locale:message key="grade"/> «4»"></label>
             <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3" title="Оценка «3»"></label>
+            <label for="star3" title="<locale:message key="grade"/> «3»"></label>
             <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2" title="Оценка «2»"></label>
+            <label for="star2" title="<locale:message key="grade"/> «2»"></label>
             <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1" title="Оценка «1»"></label>
+            <label for="star1" title="<locale:message key="grade"/> «1»"></label>
         </div>
     </div>
     <br>
     <div class="container text-center">
-        <button type="submit" class="btn btn-primary" style="width: 450px">Подтвердить отзыв</button>
+        <button type="submit" class="btn btn-primary" style="width: 450px"><locale:message key="confirm_review"/></button>
     </div>
 
 </form>

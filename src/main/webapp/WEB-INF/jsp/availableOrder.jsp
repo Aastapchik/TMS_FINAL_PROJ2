@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!--
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -65,21 +66,22 @@
                 </div>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-welcome'"
                         type="button">
-                    Вернуться на главную
+                    <locale:message key="returns_to_home"/>
                 </button>
 
-                <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
+                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
             </ul>
 
             <div class="text-end">
-
+                <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+                <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
                 <div class="text-end">
                     <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'"
                             type="button">
-                        Редактировать учётную запись
+                        <locale:message key="edit_my_details"/>
                     </button>
                     <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
-                        Выход
+                        <locale:message key="logout"/>
                     </button>
                 </div>
             </div>
@@ -88,35 +90,40 @@
 <br>
 <div class="container text-left">
     <div class="row">
-        <div class="col" style="font-size: 50px; font-weight: bold">Доступные заказы к выполнению</div>
+        <div class="col" style="font-size: 50px; font-weight: bold"><locale:message
+                key="available_orders_for_fulfillment"/></div>
 
     </div>
 </div>
 <c:forEach items="${availableOrders}" var="order">
-<br>
-<div class="container text-center">
-    <div class="card w-100 mb-3">
-        <div class="card-body">
-            <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
-            <form method="post" id="addOrder${order.getId()}" name="addOrder"
-                  action="${pageContext.request.contextPath}/profi-master-add-order">
-                <div class="container text-right">
-                    <input name="status" type="hidden" value="${order.status}"/>
-                    <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                    <input name="name" type="hidden" value="${order.nameOrder}"/>
-                    <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
-                    <hr>
-                    <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
-                    <hr>
-                    <p style="text-align: left; font-size: 25px;">
-                        Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
-                    <button type="submit" class="btn btn-primary" form="addOrder${order.getId()}">Отозваться выполнять заказ</button>
-                </div>
-            </form>
+    <br>
+    <div class="container text-center">
+        <div class="card w-100 mb-3">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size: 45px"><locale:message key="order"/>: ${order.nameOrder}</h5>
+                <form method="post" id="addOrder${order.getId()}" name="addOrder"
+                      action="${pageContext.request.contextPath}/profi-master-add-order">
+                    <div class="container text-right">
+                        <input name="status" type="hidden" value="${order.status}"/>
+                        <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                        <input name="name" type="hidden" value="${order.nameOrder}"/>
+                        <p style="text-align: left; font-size: 25px"><locale:message
+                                key="status_master"/>: ${order.status} </p>
+                        <hr>
+                        <p style="text-align: left; font-size: 15px"><locale:message
+                                key="description_order"/>: ${order.descriptionOrder} </p>
+                        <hr>
+                        <p style="text-align: left; font-size: 25px;">
+                            <locale:message
+                                    key="customer"/>: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
+                        <button type="submit" class="btn btn-primary" form="addOrder${order.getId()}"><locale:message
+                                key="respond_to_fulfill_the_order"/></button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-    </c:forEach>
+</c:forEach>
 
 </body>
 

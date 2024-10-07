@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ru">
 
@@ -425,17 +426,18 @@
                 </div>
 
 
-                <li><a href="${pageContext.request.contextPath}/profi-master-welcome" class="nav-link px-2 text-white">Вернуться
-                    на главную</a></li>
+                <li><a href="${pageContext.request.contextPath}/profi-master-welcome" class="nav-link px-2 text-white"><locale:message key="returns_to_home"/> </a></li>
                 <li><p>__________________</p></li>
 
-                <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
+                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
             </ul>
 
             <div class="text-end">
+                <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+                <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
 
                 <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
-                    Выйти из аккаунта
+                    <locale:message key="logout"/>
                 </button>
             </div>
         </div>
@@ -446,16 +448,16 @@
 
     <div class="tabs">
         <input id="tab1" type="radio" name="tabs" checked>
-        <label for="tab1" title="Моя учетная запись">Посмотреть мою учетную запись</label>
+        <label for="tab1" title="Моя учетная запись"><locale:message key="view_my_account"/></label>
         <input id="tab2" type="radio" name="tabs">
-        <label for="tab2" title="Редактирование учетной записи">Редактировать мои данные</label>
+        <label for="tab2" title="Редактирование учетной записи"><locale:message key="edit_my_details"/></label>
         <input id="tab3" type="radio" name="tabs">
-        <label for="tab3" title="Отзывы">Отзывы клиентов</label>
+        <label for="tab3" title="Отзывы"><locale:message key="client_reviews"/></label>
 
         <section id="content-tab1">
 
             <div class="rating-result">
-                <p style="font-size: 25px">Мой рейтинг:</p>
+                <p style="font-size: 25px"><locale:message key="my_rating"/>:</p>
                 <c:forEach begin="1" end="${score}">
                     <span class="active"></span>
                 </c:forEach>
@@ -464,41 +466,45 @@
                 </c:forEach>
                 ${scoreNoRound}
             </div>
-            <p style="font-size: 25px">Моё имя: ${userCard.name}</p>
-            <p style="font-size: 25px">Моя фамилия: ${userCard.surname}</p>
-            <p style="font-size: 25px">Сферы деятельности: </p>
-            <p style="font-size: 25px">Краткое резюме: ${userCard.description}</p>
+            <p style="font-size: 25px"><locale:message key="my_name"/>: ${userCard.name}</p>
+            <p style="font-size: 25px"><locale:message key="my_last_name"/>: ${userCard.surname}</p>
+            <p style="font-size: 25px"><locale:message key="fields_of_activity"/>: </p>
+            <p style="font-size: 25px"><locale:message key="brief_summary"/>: ${userCard.description}</p>
 
         </section>
 
         <section id="content-tab2">
-            <p style="text-align: center; font-size: 25px">Заполните те графы, которые желаете изменить.</p>
-            <form method="post" action="${pageContext.request.contextPath}/profi-master-update-card"
-                  name="updateCardUser"
+            <p style="text-align: center; font-size: 25px"><locale:message
+                    key="fill_in_the_fields_you_want_to_change"/></p>
+            <form method="post" action="${pageContext.request.contextPath}/profi-user-update-card" name="updateCardUser"
                   id="updateCardUser">
                 <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic">Изменить имя</label>
+                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
+                        key="change_name"/></label>
                 <br>
                 <input class="form-control" name="newNameUser" style="width: 750px"
                        placeholder="Введите имя"/>
                 <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic">Изменить фамилию</label>
+                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
+                        key="change_last_name"/></label>
                 <br>
                 <input class="form-control" name="newSurnameUser" style="width: 750px"
                        placeholder="Введите фамилию"/>
                 <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic">Обновить сферы деятельности</label>
+                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
+                        key="update_areas_of_activity"/></label>
                 <br>
                 <input class="form-control" name="newSpheresActivityUser" style="width: 750px"
                        placeholder="Указанные сферы деятельности:}"/>
                 <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic">Обновить резюме</label>
+                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
+                        key="update_summary"/></label>
                 <br>
                 <input class="form-control" name="newDescriptionUser" style="width: 750px"
                        placeholder=""/>
                 <br>
-                <button type="submit" class="btn btn-danger" form="updateCardUser" style="text-align: right">Обновить
-                    данные
+                <button type="submit" class="btn btn-danger" form="updateCardUser" style="text-align: right">
+                    <locale:message key="update_details"/>
                 </button>
             </form>
 
@@ -519,7 +525,7 @@
                                         <span></span>
                                     </c:forEach>
                                 </div>
-                                <p>Отзыв: ${userReviewsList.get(i).getReview()}</p>
+                                <p><locale:message key="review_user"/>: ${userReviewsList.get(i).getReview()}</p>
                             </div>
                             <c:if test="${userReviewsList.get(i+1).getGrade() != 6}">
                                 <div class="col">
@@ -532,7 +538,7 @@
                                             <span></span>
                                         </c:forEach>
                                     </div>
-                                    <p>Отзыв: ${userReviewsList.get(i+1).getReview()}</p>
+                                    <p><locale:message key="review_user"/>: ${userReviewsList.get(i+1).getReview()}</p>
                                 </div>
                             </c:if>
 
@@ -546,7 +552,7 @@
             </c:if>
             <c:if test="${userReviewsList.size() == 0}">
                 <div class="container text-center">
-                    <p>У тебя пока еще нет отзывов :)</p>
+                    <p><locale:message key="you_don't_have_any_reviews_yet"/></p>
                 </div>
             </c:if>
         </section>

@@ -33,11 +33,13 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                         .requestMatchers("/profi-master-welcome", "/profi-master-settings", "/profi-master-update-card", "/profi-master-show-orders",
-                                 "/profi-master-add-order", "/profi-master-remove-order", "/profi-master-report-completion", "/profi-master-add-review", "/profi-master-show-review").hasRole("ADMIN")
+                        .requestMatchers("/profi-master-welcome", "/profi-master-settings", "/profi-master-update-card", "/profi-master-show-orders",
+                                "/profi-master-add-order", "/profi-master-remove-order", "/profi-master-report-completion", "/profi-master-add-review", "/profi-master-show-review").hasRole("ADMIN")
                         .requestMatchers("/profi-user-myorders", "/profi-user-welcome", "/profi-user-create-order",
                                 "/profi-user-save-order", "/profi-user-delete-order", "/profi-user-update-card", "/profi-user-settings", "/profi-user-show-review", "/profi-user-add-review").hasRole("USER")
                         .requestMatchers("/profi-welcome", "/profi-registration", "/profi-save-new-account").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll())
 
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
@@ -67,6 +69,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -79,5 +82,6 @@ public class SecurityConfig {
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }

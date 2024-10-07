@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -59,34 +60,40 @@
             </ul>
         </div>
     </div>
+    <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+    <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
 </header>
 <br>
 <div class="container text-center">
-    <c:if test="${userNotNULL}"><p>Пользователь с таким логином уже существует!</p></c:if>
-    <c:if test="${passwordWrong}"><p>Введенные пароли не совпадают!</p></c:if>
+    <c:if test="${userNotNULL}"><p><locale:message key="a_user_with_this_login_already_exists"/></p></c:if>
+    <c:if test="${passwordWrong}"><p><locale:message key="the_passwords_entered_do_not_match"/></p></c:if>
     <form action="${pageContext.request.contextPath}/profi-save-new-account" method="post" name="saveAcc" id="saveAcc">
         <div class="mb-3">
-            <label for="login" class="form-label" style="font-size: 25px; font-weight: bold">Введите логин</label>
+            <label for="login" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
+                    key="enter_login"/></label>
             <input required type="text" class="form-control" id="login" name="login">
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label"style="font-size: 25px; font-weight: bold">Введите пароль</label>
+            <label for="password" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
+                    key="enter_password"/></label>
             <input required type="password" class="form-control" id="password" name="password">
         </div>
         <div class="mb-3">
-            <label for="passwordRepeat" class="form-label"style="font-size: 25px; font-weight: bold">Введите пароль повторно</label>
+            <label for="passwordRepeat" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
+                    key="re-enter_password"/></label>
             <input required type="password" class="form-control" id="passwordRepeat" name="passwordRepeat">
         </div>
         <div class="mb-3">
-            <label for="role" class="form-label"style="font-size: 25px; font-weight: bold">Кем Вы желаете быть?</label>
+            <label for="role" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
+                    key="who_do_you_want_to_be"/></label>
             <select id="role" name="role" class="form-select">
-                <option selected>Кем вы желаете быть?</option>
-                <option value="ROLE_USER" name="role">Пользователь</option>
-                <option value="ROLE_ADMIN" name="role">Специалист</option>
+                <option selected><locale:message key="who_do_you_want_to_be"/></option>
+                <option value="ROLE_USER" name="role"><locale:message key="role_user"/></option>
+                <option value="ROLE_ADMIN" name="role"><locale:message key="role_master"/></option>
 
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" form="saveAcc">Зарегистрироваться</button>
+        <button type="submit" class="btn btn-primary" form="saveAcc"><locale:message key="register"/></button>
     </form>
 </div>
 </body>

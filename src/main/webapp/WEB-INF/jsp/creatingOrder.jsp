@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -72,7 +73,7 @@
             </div>
         </div>
         <select id="sphere" name="sphere" class="form-select">
-            <option selected>Выберите категорию вопроса</option>
+            <option selected><locale:message key="select_question_category"/> </option>
             <c:forEach items="${spheres}" var="sphere">
                 <option value="${sphere}" name="sphere">${sphere}</option>
             </c:forEach>
@@ -82,12 +83,12 @@
         <div class="form-floating">
             <input class="form-control" placeholder="Подробное описание заказа или услуги" id="floatingTextarea2"
                    name="descriptionOrder" style="height: 250px">
-            <label for="floatingTextarea2">Подробное описание заказа или услуги</label>
+            <label for="floatingTextarea2"><locale:message key="detailed_description_of_order_or_service"/></label>
         </div>
         <br>
     </div>
         <div class="container text-center">
-            <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+            <button type="submit" class="btn btn-primary"><locale:message key="confirm_order"/></button>
         </div>
 
 </form>

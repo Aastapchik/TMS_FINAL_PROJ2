@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML>
 <html>
@@ -63,24 +64,24 @@
                 </div>
 
 
-                <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-white">Вернуться
-                    на главную</a></li>
-                <%--                <li><p>__________</p></li>--%>
+                <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-white"><locale:message key="returns_to_home"/></a></li>
 
-                <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
+                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
             </ul>
 
             <div class="text-end">
+                <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+                <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
-                    Редактировать учётную запись
+                    <locale:message key="edit_account"/>
                 </button>
-                <button class="btn btn-warning" onclick="location.href='/profi-master-welcome'" type="button">
-                    Вход для специалистов
+                <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
+                    <locale:message key="logout"/>
+                </button>
+                <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
+                    <locale:message key="enter_master"/>
                 </button>
 
-                <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
-                    Выйти из аккаунта
-                </button>
             </div>
         </div>
     </div>
@@ -88,7 +89,7 @@
 <br>
 <div class="container text-center">
     <div class="row">
-        <div class="col" style="font-size: 50px; font-weight: bold">Мои заказы</div>
+        <div class="col" style="font-size: 50px; font-weight: bold"><locale:message key="my_order"/></div>
         <div class="col"></div>
         <div class="col"></div>
     </div>
@@ -97,7 +98,7 @@
 <div class="container text-center">
     <div class="card w-100 mb-3">
         <div class="card-body">
-            <h5 class="card-title" style="font-size: 45px">Создать заказ</h5>
+            <h5 class="card-title" style="font-size: 45px"><locale:message key="create_order"/></h5>
             <div class="container text-center">
                 <div class="row">
                     <div class="col-10">
@@ -105,13 +106,13 @@
                               name="createOrder" id="createOrder">
                             <p>
                                 <input class="form-control" style="width: 1050px"
-                                       placeholder="Услуга или специалист"
+                                       placeholder="<locale:message key="service_or_specialist"/>"
                                        aria-label="Search" name="orderWhichUserWant">
                             </p>
                         </form>
                     </div>
                     <div class="col-2">
-                        <button type="submit" class="btn btn-danger" form="createOrder">Перейти к созданию</button>
+                        <button type="submit" class="btn btn-danger" form="createOrder"><locale:message key="go_to_creation"/></button>
                     </div>
                 </div>
             </div>
@@ -125,7 +126,7 @@
     <div class="container text-center">
         <div class="card w-100 mb-3">
             <div class="card-body">
-                <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
+                <h5 class="card-title" style="font-size: 45px"><locale:message key="order"/>: ${order.nameOrder}</h5>
 
                 <form name="delete" id="delete${order.getId()}" method="post"
                       action="${pageContext.request.contextPath}/profi-user-delete-order">
@@ -134,24 +135,23 @@
                         <input name="status" type="hidden" value="${order.status}"/>
                         <input name="description" type="hidden" value="${order.descriptionOrder}"/>
                         <input name="name" type="hidden" value="${order.nameOrder}"/>
-                        <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                        <p style="text-align: left; font-size: 25px"> <locale:message key="status_master"/>: ${order.status} </p>
                         <hr>
-                        <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                        <p style="text-align: left; font-size: 15px"> <locale:message key="description_order"/>: ${order.descriptionOrder} </p>
                         <hr>
                             <%--                        <c:choose>--%>
                         <c:if test="${order.status == states.get(1)}">
                             <p style="text-align: left; font-size: 25px;">
-                                Исполнитель: ${order.master.getUserCard().getName()} ${order.master.getUserCard().getSurname()} </p>
+                                <locale:message key="executor"/>: ${order.master.getUserCard().getName()} ${order.master.getUserCard().getSurname()} </p>
                         </c:if>
                             <%--                        </c:choose>--%>
                     </div>
                     <div class="container text-right">
                             <%--                        <c:choose>--%>
                         <c:if test="${order.status == states.get(2)}">
-                            <p style="text-align: left; font-size: 25px;"> Ваш заказ пока никто не обработал </p>
+                            <p style="text-align: left; font-size: 25px;"> <locale:message key="no_one_has_processed_your_order_yet"/> </p>
                             <button type="submit" class="btn btn-danger" form="delete${order.getId()}"
-                                    style="text-align: right">Удалить
-                                заказ
+                                    style="text-align: right"><locale:message key="delete_order"/>
                             </button>
                         </c:if>
                     </div>
@@ -163,7 +163,7 @@
                         <input name="idUser" type="hidden" value="${order.getMaster().getId()}"/>
                         <br>
                         <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">
-                            Оставить отзыв о мастере
+                            <locale:message key="leave_a_review_about_the_master"/>
                         </button>
                     </form>
                 </c:if>

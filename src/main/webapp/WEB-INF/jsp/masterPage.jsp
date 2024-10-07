@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!--
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -65,21 +66,23 @@
                 </div>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-show-orders'"
                         type="button">
-                    Посмотреть актуальные заказы
+                    <locale:message key="view_current_orders"/>
                 </button>
 
-                <li><a class="nav-link px-2 text-white">Приветствуем, ${username}</a></li>
+                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
             </ul>
 
             <div class="text-end">
 
                 <div class="text-end">
+                    <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+                    <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
                     <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'"
                             type="button">
-                        Редактировать учётную запись
+                        <locale:message key="edit_my_details"/>
                     </button>
                     <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
-                        Выход
+                        <locale:message key="logout"/>
                     </button>
                 </div>
             </div>
@@ -88,7 +91,7 @@
 <br>
 <div class="container text-left">
     <div class="row">
-        <div class="col" style="font-size: 50px; font-weight: bold">Заказы, которые я выполняю</div>
+        <div class="col" style="font-size: 50px; font-weight: bold"><locale:message key="orders_I_am_fulfilling"/></div>
 
     </div>
 </div>
@@ -96,7 +99,7 @@
 <c:if test="${masterOrders.size() == 0}">
     <br>
     <div class="container text-center">
-        <p style="font-size: 15px; color: #cc6600; font-weight: bold">Пока таких заказов нет</p>
+        <p style="font-size: 15px; color: #cc6600; font-weight: bold"><locale:message key="there_are_no_such_orders_yet"/></p>
     </div>
 </c:if>
 <c:forEach items="${masterOrders}" var="order" varStatus="i">
@@ -104,7 +107,7 @@
     <div class="container text-center">
         <div class="card w-100 mb-3">
             <div class="card-body">
-                <h5 class="card-title" style="font-size: 45px">Заказ: ${order.nameOrder}</h5>
+                <h5 class="card-title" style="font-size: 45px"> <locale:message key="order"/>: ${order.nameOrder}</h5>
                 <div class="container text-right">
 
                     <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post"
@@ -114,18 +117,16 @@
                         <input name="status" type="hidden" value="${order.status}"/>
                         <input name="description" type="hidden" value="${order.descriptionOrder}"/>
                         <input name="name" type="hidden" value="${order.nameOrder}"/>
-                        <p style="text-align: left; font-size: 25px"> Статус: ${order.status} </p>
+                        <p style="text-align: left; font-size: 25px">  <locale:message key="status_master"/>: ${order.status} </p>
                         <hr>
-                        <p style="text-align: left; font-size: 15px"> Описание: ${order.descriptionOrder} </p>
+                        <p style="text-align: left; font-size: 15px">  <locale:message key="description_order"/>: ${order.descriptionOrder} </p>
                         <hr>
                         <p style="text-align: left; font-size: 25px;">
-                            Заказчик: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
+                            <locale:message key="customer"/>: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
                     </form>
 
                     <c:if test="${flagList.get(i.index)}">
-                        <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger">Отказаться
-                            от
-                            заказа
+                        <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger"> <locale:message key="cancel_order"/>
                         </button>
                         <br>
                         <form action="${pageContext.request.contextPath}/profi-master-report-completion"
@@ -136,9 +137,7 @@
                             <input name="name" type="hidden" value="${order.nameOrder}"/>
                             <br>
                             <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">
-                                Сообщить о
-                                завершении
-                                выполнения
+                                <locale:message key="report_completion_of_execution"/>
                             </button>
                         </form>
                     </c:if>
@@ -149,7 +148,7 @@
                             <input name="idUser" type="hidden" value="${order.getUser().getId()}"/>
                             <br>
                             <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">
-                                Оставить отзыв о заказчике
+                                <locale:message key="leave_feedback_about_the_customer"/>
                             </button>
                         </form>
                     </c:if>

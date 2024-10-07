@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="locale" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 -->
@@ -65,20 +66,21 @@
                 </div>
 
 
-                <li><a href="${pageContext.request.contextPath}/profi-user-myorders" class="nav-link px-2 text-white">Мои
-                    заказы</a></li>
+                <li><a href="${pageContext.request.contextPath}/profi-user-myorders" class="nav-link px-2 text-white"><locale:message key="my_order"/> </a></li>
             </ul>
 
             <div class="text-end">
+                <a href="<%=request.getContextPath()%>?locale=en">EN</a>
+                <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-welcome'"
                         type="button">
-                    Вход для специалистов
+                    <locale:message key="enter_master"/>
                 </button>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-welcome'" type="button">
-                    Вход для пользователей
+                    <locale:message key="enter_user"/>
                 </button>
                 <button class="btn btn-warning" onclick="location.href='/profi-registration'" type="button">
-                    Регистрация
+                    <locale:message key="registr"/>
                 </button>
 
             </div>
@@ -89,7 +91,7 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-10"><p style="font-weight: bold; color: gray; font-size: 75px; text-align: center">
-            Идеятельным быть легко</p></div>
+            <locale:message key="greeting"/> </p></div>
         <div class="col-2"></div>
     </div>
 </div>
@@ -101,13 +103,13 @@
                   action="${pageContext.request.contextPath}/profi-user-create-order">
                 <p>
                     <input class="form-control" name="orderWhichUserWant" style="width: 1150px"
-                           placeholder="Услуга или специалист"
+                           placeholder=" <locale:message key="service_or_specialist"/>"
                            aria-label="Search">
                 </p>
             </form>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn btn-danger" form="createOrder">Создать заказ</button>
+            <button type="submit" class="btn btn-danger" form="createOrder"> <locale:message key="create_order"/></button>
         </div>
     </div>
 </div>
@@ -119,24 +121,24 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-3">
-                        <img src="../../myPNG/engl.png"/>
+                        <img src="../../WEB-INF/image/engl.png"/>
                         <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood">Английский язык</p></a>
+                        <a href="http://localhost:8080"><p style="color: burlywood"> <locale:message key="english_lang"/></p></a>
                     </div>
                     <div class="col-3">
                         <img src="../../myPNG/lower.png"/>
                         <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood">Адвокат</p></a>
+                        <a href="http://localhost:8080"><p style="color: burlywood"> <locale:message key="lawyer"/></p></a>
                     </div>
                     <div class="col-3">
                         <img src="../../myPNG/fitn.png"/>
                         <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood">Фитнес</p></a>
+                        <a href="http://localhost:8080"><p style="color: burlywood"> <locale:message key="pe"/></p></a>
                     </div>
                     <div class="col-3">
                         <img src="../../myPNG/psih.png"/>
                         <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood">Психология</p></a>
+                        <a href="http://localhost:8080"><p style="color: burlywood"> <locale:message key="psychology"/></p></a>
                     </div>
                 </div>
             </div>
@@ -150,10 +152,10 @@
         <div class="col-10">
             <form>
                 <p style="font-weight: bolder; color: black; font-size: 45px">
-                    Профи в Минске
+                    <locale:message key="profiMinsk"/>
                 </p>
                 <br>
-                <p>В вашем регионе работает 5988 специалистов, ещё 6037 готовы помочь дистанционно.</p>
+                <p> <locale:message key="work_reg"/></p>
             </form>
         </div>
 
@@ -167,40 +169,40 @@
             <div class="container">
                 <div class="row">
                     <div class="col-3">
-                        <p style="font-weight: bold">Репетиторы</p>
-                        <a href="http://localhost:8080"><p>Математика</p></a>
-                        <a href="http://localhost:8080"><p>Физика</p></a>
-                        <a href="http://localhost:8080"><p>Русский язык</p></a>
-                        <a href="http://localhost:8080"><p>Белорусский язык</p></a>
-                        <a href="http://localhost:8080"><p>Химия</p></a>
-                        <a href="http://localhost:8080"><p>Список всех</p></a>
+                        <p style="font-weight: bold"> <locale:message key="tutors"/></p>
+                        <a href="http://localhost:8080"><p> <locale:message key="math"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="physic"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="russian_lang"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="belorus_lang"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="chemistry"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="all_list"/></p></a>
                     </div>
                     <div class="col-3">
-                        <p style="font-weight: bold">Мастера по ремонту</p>
-                        <a href="http://localhost:8080"><p>Сантехники</p></a>
-                        <a href="http://localhost:8080"><p>Электрики</p></a>
-                        <a href="http://localhost:8080"><p>Плиточники</p></a>
-                        <a href="http://localhost:8080"><p>Штукатуры</p></a>
-                        <a href="http://localhost:8080"><p>Ремонт под ключ</p></a>
-                        <a href="http://localhost:8080"><p>Список всех</p></a>
+                        <p style="font-weight: bold"> <locale:message key="repair_masters"/></p>
+                        <a href="http://localhost:8080"><p> <locale:message key="plumber"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="electricians"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="tiler"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="plasterers"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="turnkey_repairs"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="all_list"/></p></a>
                     </div>
                     <div class="col-3">
-                        <p style="font-weight: bold">Мастера красоты</p>
-                        <a href="http://localhost:8080"><p>Макияж</p></a>
-                        <a href="http://localhost:8080"><p>Маникюр</p></a>
-                        <a href="http://localhost:8080"><p>Прически</p></a>
-                        <a href="http://localhost:8080"><p>Эпиляция</p></a>
-                        <a href="http://localhost:8080"><p>Стилисты</p></a>
-                        <a href="http://localhost:8080"><p>Список всех</p></a>
+                        <p style="font-weight: bold"> <locale:message key="beauty_masters"/></p>
+                        <a href="http://localhost:8080"><p> <locale:message key="makeup"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="manicure"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="hairstyles"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="epilation"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="stylists"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="all_list"/></p></a>
                     </div>
                     <div class="col-3">
-                        <p style="font-weight: bold">Фрилансеры</p>
-                        <a href="http://localhost:8080"><p>Работа с текстами</p></a>
-                        <a href="http://localhost:8080"><p>Дизайнеры</p></a>
-                        <a href="http://localhost:8080"><p>Маркетинг</p></a>
-                        <a href="http://localhost:8080"><p>Программисты</p></a>
-                        <a href="http://localhost:8080"><p>Верстальщики</p></a>
-                        <a href="http://localhost:8080"><p>Список всех</p></a>
+                        <p style="font-weight: bold"> <locale:message key="freelancers"/></p>
+                        <a href="http://localhost:8080"><p> <locale:message key="text_work"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="designers"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="marketing"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="programmers"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="layout_designers"/></p></a>
+                        <a href="http://localhost:8080"><p> <locale:message key="all_list"/></p></a>
                     </div>
                 </div>
             </div>
