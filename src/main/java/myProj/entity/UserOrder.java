@@ -31,6 +31,11 @@ public class UserOrder {
     @JoinColumn(name="fk_executor_id")
     private User master;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name="id_sphere")
+    private SphereActivity sphereActivity;
+
+
     @Override
     public String toString() {
         return "UserOrder{" +

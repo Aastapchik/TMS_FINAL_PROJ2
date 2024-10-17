@@ -1,9 +1,6 @@
 package myProj.dataBase.request.user;
 
-import myProj.entity.User;
-import myProj.entity.UserCard;
-import myProj.entity.UserOrder;
-import myProj.entity.UserReview;
+import myProj.entity.*;
 import myProj.localMemory.Const;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -57,6 +54,10 @@ public class UserRequestDB {
     public static void saveOrderUser(String nameOrder, String description, String sphere, int id) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
+            Query getSphere = session.createQuery("FROM SphereActivity WHERE nameActivity =: sphere");
+            getSphere.setParameter("sphere", sphere);
+            SphereActivity sphereActivity = (SphereActivity) getSphere.getResultList().get(0);
+
             Query findUser = session.createQuery("FROM User Where id =: id");
             findUser.setParameter("id", id);
 
@@ -68,8 +69,8 @@ public class UserRequestDB {
             userOrder.setNameOrder(nameOrder);
             userOrder.setStatus(Const.STATES_ORDER.get(2));
             userOrder.setDescriptionOrder(description);
-
             userOrder.setUser(user);
+            userOrder.setSphereActivity(sphereActivity);
             session.persist(userOrder);
 
             session.getTransaction().commit();
@@ -134,10 +135,14 @@ public class UserRequestDB {
 
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
+//            Query getSphere = session.createQuery("FROM SphereActivity WHERE nameActivity =: sphere");
+//            getSphere.setParameter("sphere", sphere);
+//            SphereActivity sphereAct = (SphereActivity) getSphere.getResultList().get(0);
             Query findUser = session.createQuery("FROM User Where id =: id");
             findUser.setParameter("id", id);
             User user = (User) findUser.getResultList().get(0);
             UserCard userCard = user.getUserCard();
+
             if (!description.isEmpty()) userCard.setDescription(description);
             else userCard.setDescription(user.getUserCard().getDescription());
 
@@ -146,6 +151,9 @@ public class UserRequestDB {
 
             if (!surname.isEmpty()) userCard.setSurname(surname);
             else userCard.setSurname(user.getUserCard().getSurname());
+
+//            if(!sphere.isEmpty()) userCard.setSphereActivity(sphereAct);
+//            else userCard.setSphereActivity(user.getUserCard().getSphereActivity());
 
             userCard.setNumStar(user.getUserCard().getNumStar());
             user.setUserCard(userCard);

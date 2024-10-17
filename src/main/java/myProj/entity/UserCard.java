@@ -34,6 +34,10 @@ public class UserCard {
     @JoinColumn(name = "fk_card_usrs")
     private User user;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name="fk_sphere_id")
+    private SphereActivity sphereActivity;
+
     public UserCard(int numStar, String description, String name, String surname) {
         this.numStar = numStar;
         this.description = description;
