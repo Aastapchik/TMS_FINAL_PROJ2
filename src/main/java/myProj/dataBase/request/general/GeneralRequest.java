@@ -1,7 +1,6 @@
 package myProj.dataBase.request.general;
 
 import myProj.config.SecurityConfig;
-import myProj.dataBase.AppCfg;
 import myProj.dataBase.request.user.UserRequestDB;
 import myProj.entity.User;
 import myProj.entity.UserCard;
@@ -29,6 +28,7 @@ public class GeneralRequest {
         List<String> spheresActivity;
         try (Session session = sf.getCurrentSession()) {
 
+            if (!session.getTransaction().isActive()) session.beginTransaction();
             Query query = session.createQuery("SELECT nameActivity FROM SphereActivity");
             spheresActivity = query.getResultList();
         }
@@ -50,7 +50,7 @@ public class GeneralRequest {
         }
     }
 
-    public static void createUserCardNewUser(String login){
+    public static void createUserCardNewUser(String login) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             User user = UserRequestDB.findUserByUsername(login);
@@ -60,7 +60,6 @@ public class GeneralRequest {
             session.getTransaction().commit();
         }
     }
-
 
 
 }

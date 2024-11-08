@@ -476,7 +476,7 @@
         <section id="content-tab2">
             <p style="text-align: center; font-size: 25px"><locale:message
                     key="fill_in_the_fields_you_want_to_change"/></p>
-            <form method="post" action="${pageContext.request.contextPath}/profi-user-update-card" name="updateCardUser"
+            <form method="post" action="${pageContext.request.contextPath}/profi-master-update-card" name="updateCardUser"
                   id="updateCardUser">
                 <br>
                 <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
