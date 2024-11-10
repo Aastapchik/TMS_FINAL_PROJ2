@@ -36,10 +36,12 @@ public class StartController {
     @PostMapping(path = "/profi-save-new-account")
     private String addUser(@RequestParam(name = "login") String login,
                            @RequestParam(name = "password") String password,
+                           @RequestParam(name = "name") String name,
+                           @RequestParam(name = "surname") String surname,
                            @RequestParam(name = "passwordRepeat") String passwordRepeat,
                            @RequestParam(name = "role") String role,
                            Model model) {
-        if (startServiceController.addUser(login, password, passwordRepeat, role, model)) return "guestPage";
+        if (startServiceController.addUser(login, password, name, surname, passwordRepeat, role, model)) return "guestPage";
         else return "registrationForm";
 
     }

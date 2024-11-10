@@ -37,12 +37,12 @@ public class GeneralRequest {
 
     }
 
-    public static void saveUser(String login, String password, String role) {
+    public static void saveUser(String login, String password, String name, String surname, String role) {
         User user = new User();
         user.setLogin(login);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(role);
-        UserCard userCard = new UserCard(6, "Заполните описание", "Заполните имя", "Заполните фамилию");
+        UserCard userCard = new UserCard(6, "Заполните описание", name, surname);
         user.setUserCard(userCard);
         try (Session session = sf.getCurrentSession()) {
             session.save(user);
@@ -50,11 +50,11 @@ public class GeneralRequest {
         }
     }
 
-    public static void createUserCardNewUser(String login) {
+    public static void createUserCardNewUser(String login, String name, String surname) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             User user = UserRequestDB.findUserByUsername(login);
-            UserCard userCard = new UserCard(6, "Заполните описание", "Заполните имя", "Заполните фамилию");
+            UserCard userCard = new UserCard(6, "Заполните описание", name, surname);
             userCard.setUser(user);
             session.save(userCard);
             session.getTransaction().commit();

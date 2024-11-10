@@ -27,7 +27,7 @@ public class StartServiceController {
         model.addAttribute("cities", Const.CITIES);
     }
 
-    public boolean addUser(String login, String password, String passwordRepeat, String role, Model model){
+    public boolean addUser(String login, String password, String name, String surname, String passwordRepeat, String role, Model model){
         User user = findUserByUsername(login);
         if (user != null) {
             model.addAttribute("userNotNULL", true);
@@ -35,18 +35,21 @@ public class StartServiceController {
             model.addAttribute("password", password);
             model.addAttribute("passwordRepeat", passwordRepeat);
             model.addAttribute("role", role);
+            model.addAttribute("name", name);
+            model.addAttribute("surname", surname);
             return false;
         }
         if (!password.equals(passwordRepeat)) {
-            model.addAttribute("passwordWrong", true);
             model.addAttribute("login", login);
             model.addAttribute("password", password);
             model.addAttribute("passwordRepeat", passwordRepeat);
             model.addAttribute("role", role);
+            model.addAttribute("name", name);
+            model.addAttribute("surname", surname);
             return false;
         }
-        saveUser(login, password, role);
-        createUserCardNewUser(login);
+        saveUser(login, password, name, surname, role);
+        createUserCardNewUser(login, name, surname);
         return true;
 
     }

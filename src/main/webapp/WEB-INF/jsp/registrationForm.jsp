@@ -69,6 +69,16 @@
     <c:if test="${passwordWrong}"><p><locale:message key="the_passwords_entered_do_not_match"/></p></c:if>
     <form action="${pageContext.request.contextPath}/profi-save-new-account" method="post" name="saveAcc" id="saveAcc">
         <div class="mb-3">
+            <label for="passwordRepeat" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
+                    key="name"/></label>
+            <input required type="password" class="form-control" id="nameUser" name="passwordRepeat">
+        </div>
+        <div class="mb-3">
+            <label for="passwordRepeat" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
+                    key="surname"/></label>
+            <input required type="password" class="form-control" id="surnameUser" name="passwordRepeat">
+        </div>
+        <div class="mb-3">
             <label for="login" class="form-label" style="font-size: 25px; font-weight: bold"><locale:message
                     key="enter_login"/></label>
             <input required type="text" class="form-control" id="login" name="login">
