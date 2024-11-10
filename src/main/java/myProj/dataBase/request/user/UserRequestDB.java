@@ -160,7 +160,7 @@ public class UserRequestDB {
             user.setUserCard(userCard);
 
             session.update(user);
-          //  session.getTransaction().commit();
+            session.getTransaction().commit();
         }
 
     }
