@@ -36,8 +36,8 @@ public class StartController {
     @PostMapping(path = "/profi-save-new-account")
     private String addUser(@RequestParam(name = "login") String login,
                            @RequestParam(name = "password") String password,
-                           @RequestParam(name = "name") String name,
-                           @RequestParam(name = "surname") String surname,
+                           @RequestParam(name = "nameUser") String name,
+                           @RequestParam(name = "surnameUser") String surname,
                            @RequestParam(name = "passwordRepeat") String passwordRepeat,
                            @RequestParam(name = "role") String role,
                            Model model) {
