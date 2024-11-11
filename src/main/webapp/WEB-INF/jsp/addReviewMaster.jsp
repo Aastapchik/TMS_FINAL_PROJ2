@@ -136,7 +136,7 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="http://localhost:8080" class="nav-link px-2 text-red"
+                <li><a href="${pageContext.request.contextPath}/profi-master-welcome" class="nav-link px-2 text-red"
                        style="color: red; font-weight: bold">MYPROJPROFI</a></li>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
