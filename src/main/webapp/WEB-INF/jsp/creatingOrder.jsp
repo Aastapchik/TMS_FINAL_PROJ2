@@ -69,7 +69,7 @@
             <div class="mb-3">
                 <label for="nameOrder" class="form-label"
                        style="font-size: 15px"></label>
-                <input type="text" class="form-control" id="nameOrder" name = "nameOrder" value="${nameOrderUser}">
+                <input required type="text" class="form-control" id="nameOrder" name = "nameOrder" value="${nameOrderUser}">
             </div>
         </div>
         <select id="sphere" name="sphere" class="form-select">
