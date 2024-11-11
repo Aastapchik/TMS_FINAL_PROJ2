@@ -449,18 +449,81 @@
 
 
         <section id="content-tab1">
+
             <c:forEach items="${userList}" var="user">
-                <form method="post" action="${pageContext.request.contextPath}/profi-ban-user" id="ban${user.getId()}">
-                    ${user.getUserCard().getName()} ${user.getUserCard().getSurname()}, ${user.getLogin()}
-                </form>
+
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">${user.getUserCard().getName()} ${user.getUserCard().getSurname()}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Пользователь</h6>
+                        <p class="card-text">Логин: ${user.getLogin()}, статус: ${user.getStatusAcc()}
+                            <br>
+                            <c:if test="${user.getStatusAcc().length() > 2}">
+                            причина: ${user.getReason()}</p>
+                        <br>
+                        <form method="post" action="${pageContext.request.contextPath}/profi-unban-user"
+                              id="unban${user.getId()}">
+                            <input name="id" type="hidden" value="${user.getId()}"/>
+                            <button type="submit" class="btn btn-outline-warning" form="unban${user.getId()}">
+                                Разблокировать
+                            </button>
+                            </c:if>
+                        </form>
+                        <c:if test="${user.getStatusAcc().length() == 2}">
+                            <form method="post" action="${pageContext.request.contextPath}/profi-ban-user"
+                                  id="ban${user.getId()}">
+                                <label for="reasonUser" class="form-label">Причина: </label>
+                                <input required type="text" class="form-control" name="reason" id="reasonUser">
+                                <br>
+                                <input name="id" type="hidden" value="${user.getId()}"/>
+                                <button type="submit" class="btn btn-outline-danger">Заблокировать</button>
+                            </form>
+                        </c:if></div>
+                </div>
+
+                <br>
+
             </c:forEach>
+
         </section>
         <section id="content-tab2">
-            <c:forEach items="${masterList}" var="master">
-                <form method="post" action="${pageContext.request.contextPath}/profi-ban-master" id="ban${master.getId()}">
-                        ${master.getUserCard().getName()} ${master.getUserCard().getSurname()}, ${master.getLogin()}
-                </form>
+            <c:forEach items="${masterList}" var="user">
+
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">${user.getUserCard().getName()} ${user.getUserCard().getSurname()}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Специалист</h6>
+                        <p class="card-text">Логин: ${user.getLogin()}, статус: ${user.getStatusAcc()}
+                            <br>
+                            <c:if test="${user.getStatusAcc().length() > 2}">
+                            причина: ${user.getReason()}</p>
+                        <br>
+                        <form method="post" action="${pageContext.request.contextPath}/profi-unban-master"
+                              id="unban${user.getId()}">
+                            <input name="id" type="hidden" value="${user.getId()}"/>
+                            <button type="submit" class="btn btn-outline-warning" form="unban${user.getId()}">
+                                Разблокировать
+                            </button>
+                            </c:if>
+                        </form>
+                        <c:if test="${user.getStatusAcc().length() == 2}">
+                            <form method="post" action="${pageContext.request.contextPath}/profi-ban-master"
+                                  id="ban${user.getId()}">
+                                <label for="reasonMaster" class="form-label">Причина: </label>
+                                <input required type="text" class="form-control" name="reason" id="reasonMaster">
+                                <br>
+                                <input name="id" type="hidden" value="${user.getId()}"/>
+                                <button type="submit" class="btn btn-outline-danger">Заблокировать</button>
+                            </form>
+                        </c:if></div>
+                </div>
+
+                <br>
+
             </c:forEach>
+
         </section>
 
     </div>

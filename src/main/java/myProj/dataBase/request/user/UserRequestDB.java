@@ -252,4 +252,32 @@ public class UserRequestDB {
         model.addAttribute("userList", userList);
     }
 
+    public static void banUserDB(int id, String reason){
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where id =: id");
+            findUser.setParameter("id", id);
+            User user = (User) findUser.getResultList().get(0);
+            user.setReason(reason);
+            user.setStatusAcc(Const.STATUS_BAN);
+            session.update(user);
+            session.getTransaction().commit();
+
+        }
+    }
+
+    public static void unbanUserDB(int id){
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where id =: id");
+            findUser.setParameter("id", id);
+            User user = (User) findUser.getResultList().get(0);
+            user.setReason("");
+            user.setStatusAcc(Const.STATUS_OK);
+            session.update(user);
+            session.getTransaction().commit();
+
+        }
+    }
+
 }
