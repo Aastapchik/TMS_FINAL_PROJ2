@@ -64,23 +64,28 @@
                         </c:forEach>
                     </ul>
                 </div>
-                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-show-orders'"
-                        type="button">
-                    <locale:message key="view_current_orders"/>
-                </button>
+                <c:if test="${statusAcc}">
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-show-orders'"
+                            type="button">
+                        <locale:message key="view_current_orders"/>
+                    </button>
 
-                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
+                    <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
+                </c:if>
             </ul>
+
 
             <div class="text-end">
 
                 <div class="text-end">
                     <a href="<%=request.getContextPath()%>?locale=en">EN</a>
                     <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
-                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'"
-                            type="button">
-                        <locale:message key="edit_my_details"/>
-                    </button>
+                    <c:if test="${statusAcc}">
+                        <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-settings'"
+                                type="button">
+                            <locale:message key="edit_my_details"/>
+                        </button>
+                    </c:if>
                     <button class="btn btn-outline-light me-2" onclick="location.href='/logout'" type="button">
                         <locale:message key="logout"/>
                     </button>
@@ -88,79 +93,98 @@
             </div>
         </div>
 </header>
-<br>
-<div class="container text-left">
-    <div class="row">
-        <div class="col" style="font-size: 50px; font-weight: bold"><locale:message key="orders_I_am_fulfilling"/></div>
-
-    </div>
-</div>
-
-<c:if test="${masterOrders.size() == 0}">
+<c:if test="${statusAcc}">
     <br>
-    <div class="container text-center">
-        <p style="font-size: 15px; color: #cc6600; font-weight: bold"><locale:message key="there_are_no_such_orders_yet"/></p>
-    </div>
-</c:if>
-<c:forEach items="${masterOrders}" var="order" varStatus="i">
-    <br>
-    <div class="container text-center">
-        <div class="card w-100 mb-3">
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 45px"> <locale:message key="order"/>: ${order.nameOrder}</h5>
-                <div class="container text-right">
+    <div class="container text-left">
+        <div class="row">
+            <div class="col" style="font-size: 50px; font-weight: bold"><locale:message
+                    key="orders_I_am_fulfilling"/></div>
 
-                    <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post"
-                          name="removeOrder" id="removeOrder${order.getId()}">
-
-
-                        <input name="status" type="hidden" value="${order.status}"/>
-                        <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                        <input name="name" type="hidden" value="${order.nameOrder}"/>
-                        <p style="text-align: left; font-size: 25px">  <locale:message key="status_master"/>: ${order.status} </p>
-                        <hr>
-                        <p style="text-align: left; font-size: 15px">  <locale:message key="description_order"/>: ${order.descriptionOrder} </p>
-                        <hr>
-                        <p style="text-align: left; font-size: 25px;">
-                            <locale:message key="customer"/>: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
-                    </form>
-
-                    <c:if test="${flagList.get(i.index)}">
-                        <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger"> <locale:message key="cancel_order"/>
-                        </button>
-                        <br>
-                        <form action="${pageContext.request.contextPath}/profi-master-report-completion"
-                              method="post"
-                              name="reportCompletion" id="reportCompletion${order.getId()}">
-                            <input name="status" type="hidden" value="${order.status}"/>
-                            <input name="description" type="hidden" value="${order.descriptionOrder}"/>
-                            <input name="name" type="hidden" value="${order.nameOrder}"/>
-                            <br>
-                            <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">
-                                <locale:message key="report_completion_of_execution"/>
-                            </button>
-                        </form>
-                    </c:if>
-                    <c:if test="${!flagList.get(i.index)}">
-                        <form action="${pageContext.request.contextPath}/profi-master-show-review"
-                              method="post"
-                              name="reportCompletion" id="addReview${order.getId()}">
-                            <input name="idUser" type="hidden" value="${order.getUser().getId()}"/>
-                            <br>
-                            <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">
-                                <locale:message key="leave_feedback_about_the_customer"/>
-                            </button>
-                        </form>
-                    </c:if>
-
-
-                </div>
-            </div>
         </div>
     </div>
 
-</c:forEach>
+    <c:if test="${masterOrders.size() == 0}">
+        <br>
+        <div class="container text-center">
+            <p style="font-size: 15px; color: #cc6600; font-weight: bold"><locale:message
+                    key="there_are_no_such_orders_yet"/></p>
+        </div>
+    </c:if>
+    <c:forEach items="${masterOrders}" var="order" varStatus="i">
+        <br>
+        <div class="container text-center">
+            <div class="card w-100 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 45px"><locale:message
+                            key="order"/>: ${order.nameOrder}</h5>
+                    <div class="container text-right">
 
+                        <form action="${pageContext.request.contextPath}/profi-master-remove-order" method="post"
+                              name="removeOrder" id="removeOrder${order.getId()}">
+
+
+                            <input name="status" type="hidden" value="${order.status}"/>
+                            <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                            <input name="name" type="hidden" value="${order.nameOrder}"/>
+                            <p style="text-align: left; font-size: 25px"><locale:message
+                                    key="status_master"/>: ${order.status} </p>
+                            <hr>
+                            <p style="text-align: left; font-size: 15px"><locale:message
+                                    key="description_order"/>: ${order.descriptionOrder} </p>
+                            <hr>
+                            <p style="text-align: left; font-size: 25px;">
+                                <locale:message
+                                        key="customer"/>: ${order.user.getUserCard().getName()} ${order.user.getUserCard().getSurname()} </p>
+                        </form>
+
+                        <c:if test="${flagList.get(i.index)}">
+                            <button type="submit" form="removeOrder${order.getId()}" class="btn btn-danger">
+                                <locale:message key="cancel_order"/>
+                            </button>
+                            <br>
+                            <form action="${pageContext.request.contextPath}/profi-master-report-completion"
+                                  method="post"
+                                  name="reportCompletion" id="reportCompletion${order.getId()}">
+                                <input name="status" type="hidden" value="${order.status}"/>
+                                <input name="description" type="hidden" value="${order.descriptionOrder}"/>
+                                <input name="name" type="hidden" value="${order.nameOrder}"/>
+                                <br>
+                                <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">
+                                    <locale:message key="report_completion_of_execution"/>
+                                </button>
+                            </form>
+                        </c:if>
+                        <c:if test="${!flagList.get(i.index)}">
+                            <form action="${pageContext.request.contextPath}/profi-master-show-review"
+                                  method="post"
+                                  name="reportCompletion" id="addReview${order.getId()}">
+                                <input name="idUser" type="hidden" value="${order.getUser().getId()}"/>
+                                <br>
+                                <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">
+                                    <locale:message key="leave_feedback_about_the_customer"/>
+                                </button>
+                            </form>
+                        </c:if>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </c:forEach>
+</c:if>
+
+<c:if test="${!statusAcc}">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-10"><p style="font-weight: bold; color: gray; font-size: 75px; text-align: center">
+                Аккаунт заблокирован. Причина: ${reason}</p></div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+</c:if>
 </body>
 
 
