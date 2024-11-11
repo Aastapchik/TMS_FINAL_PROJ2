@@ -143,6 +143,7 @@
                         <c:if test="${order.status == states.get(1)}">
                             <p style="text-align: left; font-size: 25px;">
                                 <locale:message key="executor"/>: ${order.master.getUserCard().getName()} ${order.master.getUserCard().getSurname()} </p>
+
                         </c:if>
                             <%--                        </c:choose>--%>
                     </div>
@@ -160,6 +161,7 @@
                     <form action="${pageContext.request.contextPath}/profi-user-show-review"
                           method="post"
                           name="reportCompletion" id="addReview${order.getId()}">
+                        <p style="text-align: left; font-size: 25px;">Ответ: ${order.getAnswer()}</p>
                         <input name="idUser" type="hidden" value="${order.getMaster().getId()}"/>
                         <br>
                         <button type="submit" form="addReview${order.getId()}" class="btn btn-danger">

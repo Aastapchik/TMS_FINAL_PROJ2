@@ -86,9 +86,18 @@ public class MasterControllerService {
     public void setApproveOrder(String name, String status, String description, String answer, Model model) {
         int id = getID();
         model.addAttribute("states", Const.STATES_ORDER);
-        getUsernameFromModel(model, id);
-        approveOrderMaster(name, status, description, answer);
-        getMasterOrderFromModel(model, id);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            getUsernameFromModel(model, id);
+            approveOrderMaster(name, status, description, answer);
+            getMasterOrderFromModel(model, id);
+        }
+
     }
 
     public void showReviewMaster(String idUser, Model model) {
