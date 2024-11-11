@@ -1,6 +1,5 @@
 package myProj.dataBase.request.user;
 
-import jakarta.persistence.PersistenceUnit;
 import myProj.entity.*;
 import myProj.localMemory.Const;
 import org.hibernate.Session;
@@ -24,12 +23,12 @@ public class UserRequestDB {
     public static void getUserOrderFromModel(Model model, int id) {
         List<UserOrder> userOrderList;
         try (Session session = sf.getCurrentSession()) {
-           // if(session.getTransaction().isActive())
+            // if(session.getTransaction().isActive())
             session.beginTransaction();
             Query getUserOrderList = session.createQuery("SELECT userOrders FROM User where id=:id ");
             getUserOrderList.setParameter("id", id);
             userOrderList = getUserOrderList.getResultList();
-           // session.getTransaction().commit();
+            // session.getTransaction().commit();
 
         }
         model.addAttribute("orders", userOrderList);
@@ -46,11 +45,10 @@ public class UserRequestDB {
             if (list.isEmpty()) return;
             UserCard userCard = (UserCard) list.get(0);
             username = userCard.getSurname() + " " + userCard.getName();
-           // session.getTransaction().commit();
+            // session.getTransaction().commit();
         }
         model.addAttribute("username", username);
     }
-
 
 
     public static void saveOrderUser(String nameOrder, String description, String sphere, int id) {
@@ -75,7 +73,7 @@ public class UserRequestDB {
             userOrder.setSphereActivity(sphereActivity);
             session.persist(userOrder);
 
-         //   session.getTransaction().commit();
+            //   session.getTransaction().commit();
 
 
         }
@@ -112,7 +110,7 @@ public class UserRequestDB {
             query.setParameter("status", status);
             query.setParameter("description", description);
             query.executeUpdate();
-          //  session.getTransaction().commit();
+            //  session.getTransaction().commit();
         }
 
     }
@@ -126,7 +124,7 @@ public class UserRequestDB {
             getUserCard.setParameter("id", id);
 
             userCard = (UserCard) getUserCard.getResultList().get(0);
-          //  session.getTransaction().commit();
+            //  session.getTransaction().commit();
         }
         model.addAttribute("userCard", userCard);
     }
@@ -175,7 +173,7 @@ public class UserRequestDB {
             List<UserReview> userReviewsList = findUser.getResultList();
             scores = new int[userReviewsList.size()];
             for (int i = 0; i < userReviewsList.size(); i++) scores[i] = userReviewsList.get(i).getGrade();
-           // session.getTransaction().commit();
+            // session.getTransaction().commit();
 
         }
         return scores;
@@ -209,7 +207,7 @@ public class UserRequestDB {
             Query findUser = session.createQuery("FROM User Where login =: username");
             findUser.setParameter("username", username);
             if (!findUser.getResultList().isEmpty()) user = (User) findUser.getResultList().get(0);
-          //  session.getTransaction().commit();
+            //  session.getTransaction().commit();
         }
         return user;
     }
@@ -226,7 +224,7 @@ public class UserRequestDB {
         return user;
     }
 
-    public static void addReviewFromUser(int idUser, String review, int grade){
+    public static void addReviewFromUser(int idUser, String review, int grade) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
             Query findUser = session.createQuery("FROM User Where id =: id");
@@ -238,9 +236,20 @@ public class UserRequestDB {
             userReview.setGrade(grade);
             session.save(userReview);
 
-           // session.getTransaction().commit();
+            // session.getTransaction().commit();
         }
     }
 
+    public static void addAllUserFromModel(Model model) {
+        List<User> userList;
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where role =: role");
+            findUser.setParameter("role", "ROLE_USER");
+            userList = findUser.getResultList();
+
+        }
+        model.addAttribute("userList", userList);
+    }
 
 }

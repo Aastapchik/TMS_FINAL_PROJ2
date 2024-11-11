@@ -425,11 +425,6 @@
 
                 </div>
 
-
-                <li><a href="${pageContext.request.contextPath}/profi-master-welcome" class="nav-link px-2 text-white"><locale:message key="returns_to_home"/> </a></li>
-                <li><p>__________________</p></li>
-
-                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
             </ul>
 
             <div class="text-end">
@@ -448,113 +443,24 @@
 
     <div class="tabs">
         <input id="tab1" type="radio" name="tabs" checked>
-        <label for="tab1" title="Моя учетная запись"><locale:message key="view_my_account"/></label>
+        <label for="tab1" title="Список пользователей">Список пользователей</label>
         <input id="tab2" type="radio" name="tabs">
-        <label for="tab2" title="Редактирование учетной записи"><locale:message key="edit_my_details"/></label>
-        <input id="tab3" type="radio" name="tabs">
-        <label for="tab3" title="Отзывы"><locale:message key="client_reviews"/></label>
+        <label for="tab2" title="Список мастеров">Список мастеров</label>
+
 
         <section id="content-tab1">
-
-            <div class="rating-result">
-                <p style="font-size: 25px"><locale:message key="my_rating"/>:</p>
-                <c:forEach begin="1" end="${score}">
-                    <span class="active"></span>
-                </c:forEach>
-                <c:forEach begin="1" end="${5-score}">
-                    <span></span>
-                </c:forEach>
-                ${scoreNoRound}
-            </div>
-            <p style="font-size: 25px"><locale:message key="my_name"/>: ${userCard.name}</p>
-            <p style="font-size: 25px"><locale:message key="my_last_name"/>: ${userCard.surname}</p>
-            <p style="font-size: 25px"><locale:message key="fields_of_activity"/>: </p>
-            <p style="font-size: 25px"><locale:message key="brief_summary"/>: ${userCard.description}</p>
-
+            <c:forEach items="${userList}" var="user">
+                <form method="post" action="${pageContext.request.contextPath}/profi-ban-user" id="ban${user.getId()}">
+                    ${user.getUserCard().getName()} ${user.getUserCard().getSurname()}, ${user.getLogin()}
+                </form>
+            </c:forEach>
         </section>
-
         <section id="content-tab2">
-            <p style="text-align: center; font-size: 25px"><locale:message
-                    key="fill_in_the_fields_you_want_to_change"/></p>
-            <form method="post" action="${pageContext.request.contextPath}/profi-master-update-card" name="updateCardUser"
-                  id="updateCardUser">
-                <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
-                        key="change_name"/></label>
-                <br>
-                <input class="form-control" name="newNameUser" style="width: 750px"
-                       placeholder="Введите имя"/>
-                <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
-                        key="change_last_name"/></label>
-                <br>
-                <input class="form-control" name="newSurnameUser" style="width: 750px"
-                       placeholder="Введите фамилию"/>
-                <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
-                        key="update_areas_of_activity"/></label>
-                <br>
-                <input class="form-control" name="newSpheresActivityUser" style="width: 750px"
-                       placeholder="Указанные сферы деятельности:}"/>
-                <br>
-                <label style="color: #cc6600; font-size: 15px; font-style: italic"><locale:message
-                        key="update_summary"/></label>
-                <br>
-                <input class="form-control" name="newDescriptionUser" style="width: 750px"
-                       placeholder=""/>
-                <br>
-                <button type="submit" class="btn btn-danger" form="updateCardUser" style="text-align: right">
-                    <locale:message key="update_details"/>
-                </button>
-            </form>
-
-        </section>
-
-        <section id="content-tab3">
-            <c:if test="${userReviewsList.size() > 0}">
-                <c:forEach var="i" begin="0" end="${userReviewsList.size()/2}" step="2">
-
-                    <div class="container text-center">
-                        <div class="row">
-                            <div class="col">
-                                <div class="rating-mini">
-                                    <c:forEach begin="1" end="${userReviewsList.get(i).getGrade()}">
-                                        <span class="active"></span>
-                                    </c:forEach>
-                                    <c:forEach begin="1" end="${5-userReviewsList.get(i).getGrade()}">
-                                        <span></span>
-                                    </c:forEach>
-                                </div>
-                                <p><locale:message key="review_user"/>: ${userReviewsList.get(i).getReview()}</p>
-                            </div>
-                            <c:if test="${userReviewsList.get(i+1).getGrade() != 6}">
-                                <div class="col">
-
-                                    <div class="rating-mini">
-                                        <c:forEach begin="1" end="${userReviewsList.get(i+1).getGrade()}">
-                                            <span class="active"></span>
-                                        </c:forEach>
-                                        <c:forEach begin="1" end="${5-userReviewsList.get(i+1).getGrade()}">
-                                            <span></span>
-                                        </c:forEach>
-                                    </div>
-                                    <p><locale:message key="review_user"/>: ${userReviewsList.get(i+1).getReview()}</p>
-                                </div>
-                            </c:if>
-
-                        </div>
-
-                    </div>
-                    <hr>
-
-
-                </c:forEach>
-            </c:if>
-            <c:if test="${userReviewsList.size() == 0}">
-                <div class="container text-center">
-                    <p><locale:message key="you_don't_have_any_reviews_yet"/></p>
-                </div>
-            </c:if>
+            <c:forEach items="${masterList}" var="master">
+                <form method="post" action="${pageContext.request.contextPath}/profi-ban-master" id="ban${master.getId()}">
+                        ${master.getUserCard().getName()} ${master.getUserCard().getSurname()}, ${master.getLogin()}
+                </form>
+            </c:forEach>
         </section>
 
     </div>

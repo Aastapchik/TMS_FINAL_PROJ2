@@ -1,6 +1,7 @@
 package myProj.dataBase.request.master;
 
 import myProj.dataBase.request.user.UserRequestDB;
+import myProj.entity.User;
 import myProj.entity.UserOrder;
 import myProj.localMemory.Const;
 import org.hibernate.Session;
@@ -96,6 +97,18 @@ public class MasterRequestDB {
             up.executeUpdate();
             session.getTransaction().commit();
         }
+    }
+
+    public static void addAllMasterFromModel(Model model) {
+        List<User> masterList;
+        try (Session session = sf.getCurrentSession()) {
+           if(!session.getTransaction().isActive()) session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where role =: role");
+            findUser.setParameter("role", "ROLE_ADMIN");
+            masterList = findUser.getResultList();
+
+        }
+        model.addAttribute("masterList", masterList);
     }
 
 

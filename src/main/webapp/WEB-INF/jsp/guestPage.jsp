@@ -72,6 +72,10 @@
             <div class="text-end">
                 <a href="<%=request.getContextPath()%>?locale=en">EN</a>
                 <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
+                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-admin-welcome'"
+                        type="button">
+                   АДМИН-ПАНЕЛЬ
+                </button>
                 <button class="btn btn-outline-light me-2" onclick="location.href='/profi-master-welcome'"
                         type="button">
                     <locale:message key="enter_master"/>
@@ -121,7 +125,7 @@
             <div class="container text-center">
                 <div class="row">
                     <div class="col-3">
-                        <img src="../../WEB-INF/image/engl.png"/>
+                        <img src="${pageContext.request.contextPath}/img/lower.png"/>
                         <br>
                         <a href="http://localhost:8080"><p style="color: burlywood"> <locale:message key="english_lang"/></p></a>
                     </div>
