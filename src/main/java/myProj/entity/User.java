@@ -31,6 +31,12 @@ public class User {
     @Column(name = "role_usr")
     private String role;
 
+    @Column(name = "status_acc")
+    private String statusAcc;
+
+    @Column(name = "reason")
+    private String reason;
+
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(
