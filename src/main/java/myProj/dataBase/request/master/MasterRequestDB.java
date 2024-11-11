@@ -87,13 +87,14 @@ public class MasterRequestDB {
     }
 
 
-    public static void approveOrderMaster(String nameOrder, String status, String description) {
+    public static void approveOrderMaster(String nameOrder, String status, String description, String answer) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
-            Query up = session.createQuery("UPDATE UserOrder SET status =: status WHERE nameOrder =: nameOrder AND descriptionOrder =: description");
+            Query up = session.createQuery("UPDATE UserOrder SET status =: status WHERE nameOrder =: nameOrder AND descriptionOrder =: description AND answer =: answer");
             up.setParameter("nameOrder", nameOrder);
             up.setParameter("status", Const.STATES_ORDER.get(3));
             up.setParameter("description", description);
+            up.setParameter("answer", answer);
             up.executeUpdate();
             session.getTransaction().commit();
         }

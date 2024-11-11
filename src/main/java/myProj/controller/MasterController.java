@@ -67,8 +67,9 @@ public class MasterController {
     private String setApproveOrder(@RequestParam(name = "status") String status,
                                    @RequestParam(name = "description") String description,
                                    @RequestParam(name = "name") String name,
+                                   @RequestParam(name = "answer") String answer,
                                    Model model) {
-        masterControllerService.setApproveOrder(name, status, description, model);
+        masterControllerService.setApproveOrder(name, status, description, answer, model);
         return "masterPage";
 
     }

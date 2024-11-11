@@ -23,6 +23,9 @@ public class UserOrder {
     @Column(name = "description")
     private String descriptionOrder;
 
+    @Column(name = "answer")
+    private String answer;
+
     @ManyToOne(optional=false, cascade=CascadeType.ALL)
     @JoinColumn(name="fk_usrs_order")
     private User user;

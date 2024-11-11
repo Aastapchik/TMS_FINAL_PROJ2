@@ -25,7 +25,6 @@ public class AdminController {
                            @RequestParam(name = "reason") String reason,
                            Model model) {
 
-
         banUserDB(id, reason);
         addAllUserFromModel(model);
         addAllMasterFromModel(model);

@@ -66,18 +66,28 @@ public class MasterControllerService {
     }
 
     public void removeOrderMaster(String name, String status, String description, Model model) {
+
         int id = getID();
-        getUsernameFromModel(model, id);
         model.addAttribute("states", Const.STATES_ORDER);
-        removeOrderToMaster(name, status, description);
-        getMasterOrderFromModel(model, id);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            removeOrderToMaster(name, status, description);
+            getUsernameFromModel(model, id);
+            getMasterOrderFromModel(model, id);
+        }
+
     }
 
-    public void setApproveOrder(String name, String status, String description, Model model) {
+    public void setApproveOrder(String name, String status, String description, String answer, Model model) {
         int id = getID();
         model.addAttribute("states", Const.STATES_ORDER);
         getUsernameFromModel(model, id);
-        approveOrderMaster(name, status, description);
+        approveOrderMaster(name, status, description, answer);
         getMasterOrderFromModel(model, id);
     }
 

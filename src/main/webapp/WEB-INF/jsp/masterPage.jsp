@@ -149,6 +149,10 @@
                                 <input name="description" type="hidden" value="${order.descriptionOrder}"/>
                                 <input name="name" type="hidden" value="${order.nameOrder}"/>
                                 <br>
+
+                                <label for="answer" class="form-label" style="text-align: left">Ответ (обязательное поле): </label>
+                                <input required type="text" class="form-control" name="answer" id="answer">
+                                <br>
                                 <button type="submit" form="reportCompletion${order.getId()}" class="btn btn-danger">
                                     <locale:message key="report_completion_of_execution"/>
                                 </button>
