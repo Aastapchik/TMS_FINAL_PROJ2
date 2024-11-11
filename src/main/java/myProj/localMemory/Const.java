@@ -9,4 +9,7 @@ public interface Const {
 
     public List<String> STATES_ORDER = Arrays.asList("Отменён", "Выполняется", "Ожидание", "Исполнен");
 
+    String STATUS_BAN = "BAN";
+    String STATUS_OK = "OK";
+
 }

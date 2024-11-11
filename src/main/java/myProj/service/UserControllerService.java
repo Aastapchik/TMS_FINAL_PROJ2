@@ -1,12 +1,14 @@
 package myProj.service;
 
 import jakarta.transaction.Transactional;
+import myProj.entity.User;
 import myProj.localMemory.Const;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import static myProj.dataBase.request.general.GeneralRequest.addModelAllSphereActivity;
 import static myProj.dataBase.request.user.UserRequestDB.*;
+import static myProj.localMemory.Const.STATUS_BAN;
 import static myProj.service.UserService.addScoreUserFromModel;
 import static myProj.service.UserService.getID;
 
@@ -16,7 +18,15 @@ public class UserControllerService {
 
     public void loginUser(Model model) {
         int id = getID();
-        getUsernameFromModel(model, id);
+        User user = findUserById(id);
+        String statusAcc = user.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", user.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            getUsernameFromModel(model, id);
+        }
     }
 
     public void viewingOrdersUser(Model model) {

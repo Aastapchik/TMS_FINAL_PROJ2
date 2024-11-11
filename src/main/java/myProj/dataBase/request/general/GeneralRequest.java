@@ -42,6 +42,7 @@ public class GeneralRequest {
         user.setLogin(login);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(role);
+        user.setStatusAcc("OK");
         UserCard userCard = new UserCard(6, "Заполните описание", name, surname);
         user.setUserCard(userCard);
         try (Session session = sf.getCurrentSession()) {

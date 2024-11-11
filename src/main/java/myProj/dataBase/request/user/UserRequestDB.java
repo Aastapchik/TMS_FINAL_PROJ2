@@ -52,6 +52,7 @@ public class UserRequestDB {
     }
 
 
+
     public static void saveOrderUser(String nameOrder, String description, String sphere, int id) {
         try (Session session = sf.getCurrentSession()) {
             session.beginTransaction();
@@ -209,6 +210,18 @@ public class UserRequestDB {
             findUser.setParameter("username", username);
             if (!findUser.getResultList().isEmpty()) user = (User) findUser.getResultList().get(0);
           //  session.getTransaction().commit();
+        }
+        return user;
+    }
+
+    public static User findUserById(int id) {
+        User user = null;
+        try (Session session = sf.getCurrentSession()) {
+            session.beginTransaction();
+            Query findUser = session.createQuery("FROM User Where id =: id");
+            findUser.setParameter("id", id);
+            if (!findUser.getResultList().isEmpty()) user = (User) findUser.getResultList().get(0);
+            //  session.getTransaction().commit();
         }
         return user;
     }

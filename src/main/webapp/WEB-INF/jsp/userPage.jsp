@@ -65,157 +65,175 @@
 
                 </div>
 
+                <c:if test="${statusAcc}">
+                    <li><a href="${pageContext.request.contextPath}/profi-user-myorders"
+                           class="nav-link px-2 text-white"><locale:message key="my_order"/></a></li>
 
-                <li><a href="${pageContext.request.contextPath}/profi-user-myorders"
-                       class="nav-link px-2 text-white"><locale:message key="my_order"/></a></li>
-
-                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
+                    <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
+                </c:if>
             </ul>
 
             <div class="text-end">
                 <a href="<%=request.getContextPath()%>?locale=en">EN</a>
                 <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
-                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
-                    <locale:message key="edit_account"/>
-                </button>
+                <c:if test="${statusAcc}">
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'"
+                            type="button">
+                        <locale:message key="edit_account"/>
+                    </button>
+                </c:if>
                 <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
                     <locale:message key="logout"/>
                 </button>
-                <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
-                    <locale:message key="enter_master"/>
-                </button>
+                <c:if test="${statusAcc}">
+                    <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
+                        <locale:message key="enter_master"/>
+                    </button>
+                </c:if>
 
             </div>
         </div>
     </div>
 </header>
-
-<div class="container text-center">
-    <div class="row">
-        <div class="col-10"><p style="font-weight: bold; color: gray; font-size: 75px; text-align: center">
-            <locale:message key="greeting"/></p></div>
-        <div class="col-2"></div>
-    </div>
-</div>
-
-<div class="container text-center">
-    <div class="row">
-        <div class="col-10">
-            <form method="post" name="createOrder" id="createOrder"
-                  action="${pageContext.request.contextPath}/profi-user-create-order">
-                <p>
-                    <input class="form-control" name="orderWhichUserWant" style="width: 1150px"
-                           placeholder=" <locale:message key="service_or_specialist"/>"
-                           aria-label="Search">
-                </p>
-            </form>
-        </div>
-        <div class="col-2">
-            <button type="submit" class="btn btn-danger" form="createOrder"><locale:message
-                    key="create_order"/></button>
+<c:if test="${statusAcc}">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-10"><p style="font-weight: bold; color: gray; font-size: 75px; text-align: center">
+                <locale:message key="greeting"/></p></div>
+            <div class="col-2"></div>
         </div>
     </div>
-</div>
 
-<div class="container text-center">
-    <div class="row">
-        <div class="col-12">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-10">
+                <form method="post" name="createOrder" id="createOrder"
+                      action="${pageContext.request.contextPath}/profi-user-create-order">
+                    <p>
+                        <input class="form-control" name="orderWhichUserWant" style="width: 1150px"
+                               placeholder=" <locale:message key="service_or_specialist"/>"
+                               aria-label="Search">
+                    </p>
+                </form>
+            </div>
+            <div class="col-2">
+                <button type="submit" class="btn btn-danger" form="createOrder"><locale:message
+                        key="create_order"/></button>
+            </div>
+        </div>
+    </div>
 
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="../../WEB-INF/image/engl.png"/>
-                        <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood"><locale:message
-                                key="english_lang"/></p></a>
-                    </div>
-                    <div class="col-3">
-                        <img src="../../myPNG/lower.png"/>
-                        <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood"><locale:message key="lawyer"/></p>
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <img src="../../myPNG/fitn.png"/>
-                        <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood"><locale:message key="pe"/></p></a>
-                    </div>
-                    <div class="col-3">
-                        <img src="../../myPNG/psih.png"/>
-                        <br>
-                        <a href="http://localhost:8080"><p style="color: burlywood"><locale:message
-                                key="psychology"/></p></a>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="../../WEB-INF/image/engl.png"/>
+                            <br>
+                            <a href="http://localhost:8080"><p style="color: burlywood"><locale:message
+                                    key="english_lang"/></p></a>
+                        </div>
+                        <div class="col-3">
+                            <img src="../../myPNG/lower.png"/>
+                            <br>
+                            <a href="http://localhost:8080"><p style="color: burlywood"><locale:message
+                                    key="lawyer"/></p>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <img src="../../myPNG/fitn.png"/>
+                            <br>
+                            <a href="http://localhost:8080"><p style="color: burlywood"><locale:message key="pe"/></p>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <img src="../../myPNG/psih.png"/>
+                            <br>
+                            <a href="http://localhost:8080"><p style="color: burlywood"><locale:message
+                                    key="psychology"/></p></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<br>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-10">
-            <form>
-                <p style="font-weight: bolder; color: black; font-size: 45px">
-                    <locale:message key="profiMinsk"/>
-                </p>
-                <br>
-                <p><locale:message key="work_reg"/></p>
-            </form>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <form>
+                    <p style="font-weight: bolder; color: black; font-size: 45px">
+                        <locale:message key="profiMinsk"/>
+                    </p>
+                    <br>
+                    <p><locale:message key="work_reg"/></p>
+                </form>
+            </div>
+
         </div>
-
     </div>
-</div>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-12">
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        <p style="font-weight: bold"><locale:message key="tutors"/></p>
-                        <a href="http://localhost:8080"><p><locale:message key="math"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="physic"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="russian_lang"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="belorus_lang"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="chemistry"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
-                    </div>
-                    <div class="col-3">
-                        <p style="font-weight: bold"><locale:message key="repair_masters"/></p>
-                        <a href="http://localhost:8080"><p><locale:message key="plumber"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="electricians"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="tiler"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="plasterers"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="turnkey_repairs"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
-                    </div>
-                    <div class="col-3">
-                        <p style="font-weight: bold"><locale:message key="beauty_masters"/></p>
-                        <a href="http://localhost:8080"><p><locale:message key="makeup"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="manicure"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="hairstyles"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="epilation"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="stylists"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
-                    </div>
-                    <div class="col-3">
-                        <p style="font-weight: bold"><locale:message key="freelancers"/></p>
-                        <a href="http://localhost:8080"><p><locale:message key="text_work"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="designers"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="marketing"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="programmers"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="layout_designers"/></p></a>
-                        <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <p style="font-weight: bold"><locale:message key="tutors"/></p>
+                            <a href="http://localhost:8080"><p><locale:message key="math"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="physic"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="russian_lang"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="belorus_lang"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="chemistry"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
+                        </div>
+                        <div class="col-3">
+                            <p style="font-weight: bold"><locale:message key="repair_masters"/></p>
+                            <a href="http://localhost:8080"><p><locale:message key="plumber"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="electricians"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="tiler"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="plasterers"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="turnkey_repairs"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
+                        </div>
+                        <div class="col-3">
+                            <p style="font-weight: bold"><locale:message key="beauty_masters"/></p>
+                            <a href="http://localhost:8080"><p><locale:message key="makeup"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="manicure"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="hairstyles"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="epilation"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="stylists"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
+                        </div>
+                        <div class="col-3">
+                            <p style="font-weight: bold"><locale:message key="freelancers"/></p>
+                            <a href="http://localhost:8080"><p><locale:message key="text_work"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="designers"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="marketing"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="programmers"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="layout_designers"/></p></a>
+                            <a href="http://localhost:8080"><p><locale:message key="all_list"/></p></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</c:if>
+<c:if test="${!statusAcc}">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-10"><p style="font-weight: bold; color: gray; font-size: 75px; text-align: center">
+                Аккаунт заблокирован. Причина: ${reason}</p></div>
+            <div class="col-2"></div>
+        </div>
+    </div>
 
+</c:if>
 </body>
 
 
