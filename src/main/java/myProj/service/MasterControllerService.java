@@ -33,36 +33,78 @@ public class MasterControllerService {
 
     public void showMasterSettings(Model model) {
         int id = getID();
-        addToModelUserReview(model, id);
-        addScoreUserFromModel(model, id);
-        getUserOrderFromModel(model, id);
-        getUsernameFromModel(model, id);
-        getUserCardFromModel(model, id);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            addToModelUserReview(model, id);
+            addScoreUserFromModel(model, id);
+            getUserOrderFromModel(model, id);
+            getUsernameFromModel(model, id);
+            getUserCardFromModel(model, id);
+        }
+
     }
 
     public void updateMaster(String newName, String newSurname, String newSpheresActivityUser, String newDescription, Model model) {
         int id = getID();
-        updateUserCard(newName, newSurname, newSpheresActivityUser, newDescription, id);
-        getUserOrderFromModel(model, id);
-        getUsernameFromModel(model, id);
-        getUserCardFromModel(model, id);
-        addScoreUserFromModel(model, id);
-        addToModelUserReview(model, id);
+
+        model.addAttribute("states", Const.STATES_ORDER);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            updateUserCard(newName, newSurname, newSpheresActivityUser, newDescription, id);
+            getUserOrderFromModel(model, id);
+            getUsernameFromModel(model, id);
+            getUserCardFromModel(model, id);
+            addScoreUserFromModel(model, id);
+            addToModelUserReview(model, id);
+        }
+
     }
 
     public void showingAvailableOrdersMaster(Model model) {
         int id = getID();
+
         model.addAttribute("states", Const.STATES_ORDER);
-        getUsernameFromModel(model, id);
-        getAvailableOrderFromModel(model);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            model.addAttribute("states", Const.STATES_ORDER);
+            getUsernameFromModel(model, id);
+            getAvailableOrderFromModel(model);
+        }
+
     }
 
     public void addOrderMaster(String name, String status, String description, Model model) {
+
         int id = getID();
-        getUsernameFromModel(model, id);
         model.addAttribute("states", Const.STATES_ORDER);
-        addOrderToMaster(name, status, description);
-        getAvailableOrderFromModel(model);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            getUsernameFromModel(model, id);
+            model.addAttribute("states", Const.STATES_ORDER);
+            addOrderToMaster(name, status, description);
+            getAvailableOrderFromModel(model);
+        }
+
     }
 
     public void removeOrderMaster(String name, String status, String description, Model model) {
@@ -101,17 +143,40 @@ public class MasterControllerService {
     }
 
     public void showReviewMaster(String idUser, Model model) {
-        model.addAttribute("idUser", idUser);
+
         int id = getID();
-        getUsernameFromModel(model, id);
+
+        model.addAttribute("states", Const.STATES_ORDER);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            getUsernameFromModel(model, id);
+            model.addAttribute("idUser", idUser);
+            getUsernameFromModel(model, id);
+        }
     }
 
     public void addReviewMasterPost(String idUser, String review, int grade, Model model) {
+
         int id = getID();
-        getUsernameFromModel(model, id);
         model.addAttribute("states", Const.STATES_ORDER);
-        getMasterOrderFromModel(model, id);
-        addReviewFromUser(Integer.parseInt(idUser), review, grade);
+        User master = findUserById(id);
+        String statusAcc = master.getStatusAcc();
+        if (statusAcc.equals(STATUS_BAN)) {
+            model.addAttribute("statusAcc", false);
+            model.addAttribute("reason", master.getReason());
+        } else {
+            model.addAttribute("statusAcc", true);
+            getUsernameFromModel(model, id);
+            getMasterOrderFromModel(model, id);
+            addReviewFromUser(Integer.parseInt(idUser), review, grade);
+        }
+
+
     }
 
 }
