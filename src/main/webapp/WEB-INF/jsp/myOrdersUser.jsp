@@ -63,24 +63,31 @@
 
                 </div>
 
+<%--                <c:if test="${statusAcc}">--%>
+                    <li><a href="${pageContext.request.contextPath}/profi-user-myorders"
+                           class="nav-link px-2 text-white"><locale:message key="my_order"/></a></li>
 
-                <li><a href="${pageContext.request.contextPath}/profi-user-welcome" class="nav-link px-2 text-white"><locale:message key="returns_to_home"/></a></li>
-
-                <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
+                    <li><a class="nav-link px-2 text-white"><locale:message key="hello"/>, ${username}</a></li>
+<%--                </c:if>--%>
             </ul>
 
             <div class="text-end">
                 <a href="<%=request.getContextPath()%>?locale=en">EN</a>
                 <a href="<%=request.getContextPath()%>?locale=ru">RU</a>
-                <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'" type="button">
-                    <locale:message key="edit_account"/>
-                </button>
+<%--                <c:if test="${statusAcc}">--%>
+                    <button class="btn btn-outline-light me-2" onclick="location.href='/profi-user-settings'"
+                            type="button">
+                        <locale:message key="edit_account"/>
+                    </button>
+<%--                </c:if>--%>
                 <button class="btn btn-warning" onclick="location.href='/logout'" type="button">
                     <locale:message key="logout"/>
                 </button>
-                <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
-                    <locale:message key="enter_master"/>
-                </button>
+<%--                <c:if test="${statusAcc}">--%>
+                    <button class="btn btn-warning" onclick="location.href='/profi-master-login'" type="button">
+                        <locale:message key="enter_master"/>
+                    </button>
+<%--                </c:if>--%>
 
             </div>
         </div>
